@@ -25,7 +25,7 @@ dependencies {
 	implementation group: 'javax.servlet.jsp.jstl', name: 'jstl-api', version: '1.2'
 	
 	// https://mvnrepository.com/artifact/javax.servlet/servlet-api
-	implementation group: 'javax.servlet', name: 'servlet-api', version: '2.5'
+	implementation 'javax.servlet:servlet-api:2.5'
 
     // Use JUnit Jupiter for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'

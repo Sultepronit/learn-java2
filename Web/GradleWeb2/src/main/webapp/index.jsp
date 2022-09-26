@@ -9,7 +9,9 @@
 </head>
 <body>
 
-<c:out value="Hello, JSTL" />
+<!--<c:out value="Hello, JSTL" />-->
+
+<%= new java.util.Date() %>
 
 </body>
 </html>
