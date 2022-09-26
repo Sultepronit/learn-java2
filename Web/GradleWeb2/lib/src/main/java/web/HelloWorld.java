@@ -23,11 +23,22 @@ public class HelloWorld extends HttpServlet {
     }
 
 	/**
+	 * @throws IOException 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	/*protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}*/
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    	var pw = response.getWriter();
+    	
+    	response.setContentType("text/html");
+    	
+    	pw.println("<html><strong>");
+    	pw.println("Hellooooo!");
+    	pw.println("</strong><html>");
 	}
 
 	/**
