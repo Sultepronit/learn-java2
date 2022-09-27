@@ -5,42 +5,32 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Simple form</title>
+
+<style>
+form {
+	border: 1px solid gray;
+	width: 250px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 200px;
+	padding: 30px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 0.5em 0.5em;
+}
+
+#submit {
+	grid-column: 2/3;
+}
+
+label {
+	justify-self: right;
+}
+</style>
+
 </head>
 <body>
-
-	<% System.out.println("Boo1!"); %>
-
-	<p>
-		<strong>
-			<%=new java.util.Date()%>
-		</strong>
-	</p>
-
-
-	<p>
-		<strong>
-			<%=pageContext.getServletContext().getContextPath()%>
-		</strong>
-	</p>
-
-	<p>
-		<strong>
-			${pageContext.servletContext.contextPath}
-		</strong>
-	</p>
-
-	<p>
-		<c:out value="Hello, JSTL" />
-	</p>
-
-	<p>
-		<c:out value="${pageContext.servletContext.contextPath}" />
-	</p>
-
-	<p>
-		<c:url value="/test" />
-	</p>
 	
 	<form>
 		<label for="name">Name:</label>
@@ -49,7 +39,7 @@
 		<label for="password">Password:</label>
 		<input type="password" id="password" name="password" />
 		
-		<input type="submit" name="Submit" />
+		<input type="submit" name="Submit" id="submit" />
 	</form>
 
 </body>
