@@ -41,16 +41,6 @@
 	<p>
 		<c:url value="/test" />
 	</p>
-	
-	<form>
-		<label for="name">Name:</label>
-		<input type="text" id="name" name="name" />
-		
-		<label for="password">Password:</label>
-		<input type="password" id="password" name="password" />
-		
-		<input type="submit" name="Submit" />
-	</form>
 
 </body>
 </html>
