@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,23 +9,38 @@
 </head>
 <body>
 
-<c:out value="Hello, JSTL" />
+	<% System.out.println("Boo1!"); %>
 
-<% 
-System.out.println("Boo!");
-%>
+	<p>
+		<strong>
+			<%=new java.util.Date()%>
+		</strong>
+	</p>
 
-<p>
-<strong>
-<%= new java.util.Date() %>
-</strong>
-</p>
 
-<p>
-<strong>
-${pageContext.servletContext.contextPath}
-</strong>
-</p>
+	<p>
+		<strong>
+			<%=pageContext.getServletContext().getContextPath()%>
+		</strong>
+	</p>
+
+	<p>
+		<strong>
+			${pageContext.servletContext.contextPath}
+		</strong>
+	</p>
+
+	<p>
+		<c:out value="Hello, JSTL" />
+	</p>
+
+	<p>
+		<c:out value="${pageContext.servletContext.contextPath}" />
+	</p>
+
+	<p>
+		<c:url value="/test" />
+	</p>
 
 </body>
 </html>
