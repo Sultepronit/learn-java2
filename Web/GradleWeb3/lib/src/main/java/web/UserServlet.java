@@ -1,11 +1,15 @@
 package web;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
 
 /**
  * Servlet implementation class UserServlet
@@ -27,6 +31,13 @@ public class UserServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("get");
+		
+		List<User> users = List.of(new User("Saturn", "xyz"), new User("Neptune", "abc"));
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(users);
+		System.out.println(json);
+		
 		response.getWriter().println("hey!");
 	}
 
