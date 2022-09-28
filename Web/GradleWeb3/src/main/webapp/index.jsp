@@ -10,7 +10,7 @@
 <style>
 form {
 	border: 1px solid gray;
-	width: 250px;
+	width: min-content;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 200px;
@@ -32,7 +32,7 @@ label {
 </head>
 <body>
 	
-	<form>
+	<form action="${pageContext.servletContext.contextPath}/users" method="POST">
 		<label for="name">Name:</label>
 		<input type="text" id="name" name="name" />
 		
