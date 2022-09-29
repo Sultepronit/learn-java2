@@ -38,7 +38,8 @@ public class UserServlet extends HttpServlet {
 		String json = gson.toJson(users);
 		System.out.println(json);
 		
-		response.getWriter().println("hey!");
+		response.setContentType("application/json");
+		response.getWriter().println(json);
 	}
 
 	/**
