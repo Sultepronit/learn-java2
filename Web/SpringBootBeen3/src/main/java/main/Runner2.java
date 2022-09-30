@@ -16,7 +16,7 @@ public class Runner2 implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		System.out.println("This bean2 is working!");
+		System.out.println("And greet!");
 		greeter.greet();
 		
 	}

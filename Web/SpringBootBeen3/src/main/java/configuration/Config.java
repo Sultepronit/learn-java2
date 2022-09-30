@@ -10,7 +10,7 @@ public class Config {
 	
 	@Bean
 	public Greeter configureGreeter() {
-		System.out.println("This bean3 is working!");
+		System.out.println("Here we are!");
 		return new Greeter();
 	}
 
