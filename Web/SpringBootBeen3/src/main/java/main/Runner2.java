@@ -8,22 +8,17 @@ import org.springframework.stereotype.Component;
 import greeters.Greeter;
 
 @Component
-public class Runner implements CommandLineRunner {
+public class Runner2 implements CommandLineRunner {
 
-	//@Autowired
+	@Autowired
 	private Greeter greeter; 
 	
 	@Override
 	public void run(String... args) throws Exception {
 		
-		System.out.println("This bean is not working!");
-		//greeter.greet();
+		System.out.println("This bean2 is working!");
+		greeter.greet();
 		
 	}
 	
-	/*@Bean
-	public Greeter createGreeter() {
-		return new Greeter();
-	}*/
-
 }

@@ -3,8 +3,8 @@ package app;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = {"greeter", "main"})
-//@SpringBootApplication(scanBasePackages = {"configuration", "main"})
+//@SpringBootApplication(scanBasePackages = {"greeter", "main"})
+@SpringBootApplication(scanBasePackages = {"configuration", "main"})
 public class App {
 
 	public static void main(String[] args) {
