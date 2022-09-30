@@ -7,6 +7,7 @@ import greeters.Greeter;
 
 @Configuration
 public class Config {
+	
 	@Bean
 	public Greeter configureGreeter() {
 		System.out.println("This bean3 is working!");
