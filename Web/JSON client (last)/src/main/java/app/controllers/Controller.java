@@ -5,7 +5,7 @@ import java.io.IOException;
 import app.gui.CreateBookPanel;
 import app.gui.MainFrame;
 import app.gui.ViewBooksPanel;
-import services.BookService;
+import app.services.BookService;
 
 public class Controller {
 	
@@ -17,9 +17,10 @@ public class Controller {
 	public Controller() {
 		bookService = new BookService();
 		try {
-			bookService.getAll();
+			var bookList = bookService.getAll();
+			System.out.println(bookList);
+			viewPanel = new ViewBooksPanel(bookList);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -28,7 +29,7 @@ public class Controller {
 			System.out.println(author + ": " + title);
 		});
 		
-		viewPanel = new ViewBooksPanel();
+		//viewPanel = new ViewBooksPanel();
 		
 		mainFrame = new MainFrame(createPanel, viewPanel);
 	}
