@@ -5,6 +5,7 @@ import java.io.IOException;
 import app.gui.CreateBookPanel;
 import app.gui.MainFrame;
 import app.gui.ViewBooksPanel;
+import app.model.Book;
 import app.services.BookService;
 
 public class Controller {
@@ -27,6 +28,12 @@ public class Controller {
 		createPanel = new CreateBookPanel();
 		createPanel.setFormListener((author, title) -> {
 			System.out.println(author + ": " + title);
+			try {
+				bookService.save(new Book(author, title));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		});
 		
 		//viewPanel = new ViewBooksPanel();
