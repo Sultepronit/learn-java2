@@ -23,4 +23,9 @@ public class ViewBooksPanel extends JPanel {
 		JScrollPane scrollPane = new JScrollPane(table);
 		add(scrollPane, BorderLayout.CENTER);
 	}
+
+	public void refresh() {
+		tableModel.fireTableDataChanged();
+		
+	}
 }

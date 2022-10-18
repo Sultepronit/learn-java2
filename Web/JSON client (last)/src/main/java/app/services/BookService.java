@@ -34,6 +34,9 @@ public class BookService {
 		try(var os = conn.getOutputStream()) {
 			os.write(json.getBytes(StandardCharsets.UTF_8));
 		}
+		
+		conn.getResponseCode();//to wait until everything is saved 
+		
 		conn.disconnect();
 	}
 	
