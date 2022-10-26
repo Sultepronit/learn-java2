@@ -41,7 +41,6 @@ public class App {
 		Range(int end) {
 			this(0, end);
 		}
-		}
 	}
 	
 	public static void main(String[] args) {
