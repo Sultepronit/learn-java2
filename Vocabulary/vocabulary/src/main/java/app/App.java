@@ -4,6 +4,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,10 +14,12 @@ import com.google.gson.Gson;
 
 import app.controllers.Controller;
 import app.database.Db0;
+import app.database.Dict0;
 
 public class App {
 	
 	public static String line = "";
+	public static Map<String, List<String>> map2 = null;
 	
 	public static void main(String[] args) {
 		System.out.println("Hello there");
@@ -31,11 +34,15 @@ public class App {
 		    ex.printStackTrace();
 		}*/
 		
-		/*try {
+		//HashMap map2 = null;
+		
+		try {
 			Gson gson = new Gson();
-			Reader json = Files.newBufferedReader(Paths.get("/home/step/Downloads/ultimate.json"));
-			Map map2 = gson.fromJson(json, Map.class);
-			List<String> urls = (List<String>) map2.get("tree");
+			//Reader json = Files.newBufferedReader(Paths.get("/home/step/Downloads/ultimate.json"));
+			Reader json = Files.newBufferedReader(Paths.get("db/ultimate.json"));
+			//Map map2 = gson.fromJson(json, Map.class);
+			map2 = (Map<String, List<String>>) gson.fromJson(json, Map.class);
+			List<String> urls = (List<String>) map2.get("ukraine");
 			//System.out.println(url.getClass());
 			System.out.println(urls);
 			line = urls.get(0);
@@ -45,7 +52,7 @@ public class App {
 			PlayMP3.play(array);
 		} catch (Exception ex) {
 		    ex.printStackTrace();
-		}*/
+		}
 		
 		try {
 			Db0.testDb();
@@ -53,6 +60,13 @@ public class App {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		/*try {
+			Dict0.testDb();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		
 		SwingUtilities.invokeLater(Controller::new);
 	}

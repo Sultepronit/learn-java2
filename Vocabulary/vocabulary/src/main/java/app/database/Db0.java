@@ -10,7 +10,8 @@ public class Db0 {
 	public static void testDb() throws ClassNotFoundException, SQLException {
 	Class.forName("org.sqlite.JDBC");
 	
-	String dbUrl = "jdbc:sqlite:test.db";
+	//String dbUrl = "jdbc:sqlite:db/test2.db";
+	String dbUrl = "jdbc:sqlite:test2.db";
 	var conn = DriverManager.getConnection(dbUrl);
 	
 	// if no error -- everithing works
