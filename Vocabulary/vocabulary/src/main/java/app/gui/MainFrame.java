@@ -11,7 +11,7 @@ public class MainFrame extends JFrame {
 	
 	public MainFrame(JPanel upperPanel, JPanel lowerPanel) {
 		splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, upperPanel, lowerPanel);
-		splitPane.setResizeWeight(0.3);
+		//splitPane.setResizeWeight(0.3);
 		
 		add(splitPane);
 		
