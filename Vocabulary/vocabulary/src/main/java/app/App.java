@@ -19,7 +19,7 @@ public class App {
 	public static void main(String[] args) {
 		System.out.println("Hello there");
 		
-		try {
+		/*try {
 			Gson gson = new Gson();
 			Reader json = Files.newBufferedReader(Paths.get("data.json"));
 			Map<String, String> map = gson.fromJson(json, Map.class);
@@ -27,17 +27,20 @@ public class App {
 			System.out.println(url);
 		} catch (Exception ex) {
 		    ex.printStackTrace();
-		}
+		}*/
 		
 		try {
 			Gson gson = new Gson();
 			Reader json = Files.newBufferedReader(Paths.get("/home/step/Downloads/ultimate.json"));
 			Map map2 = gson.fromJson(json, Map.class);
-			List<String> url = (List<String>) map2.get("fumbling");
+			List<String> urls = (List<String>) map2.get("tree");
 			//System.out.println(url.getClass());
-			System.out.println(url);
-			line = url.get(0);
-			System.out.println(line);
+			System.out.println(urls);
+			/*line = url.get(0);
+			System.out.println(line);*/
+			String[] array = urls.toArray(new String[0]);
+			//var player = new PlayMP3();
+			PlayMP3.play(array);
 		} catch (Exception ex) {
 		    ex.printStackTrace();
 		}
