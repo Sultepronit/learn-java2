@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import app.App;
+import app.database.Db0;
 
 public class AddCardPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -15,7 +16,8 @@ public class AddCardPanel extends JPanel {
 	public AddCardPanel() {
 		var wordField = new JTextField(30);
 		var transcField = new JTextField(30);
-		var translField = new JTextField(80);
+		//var translField = new JTextField(80);
+		var translField = new JTextField(Db0.re + "*");
 		//var translField = new JTextField();
 		//var soundUrdField = new JTextField(80);
 		var soundUrdField = new JTextField(App.line);

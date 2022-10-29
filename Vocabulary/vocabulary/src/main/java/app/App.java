@@ -3,6 +3,7 @@ package app;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import javax.swing.SwingUtilities;
 import com.google.gson.Gson;
 
 import app.controllers.Controller;
+import app.database.Db0;
 
 public class App {
 	
@@ -29,20 +31,27 @@ public class App {
 		    ex.printStackTrace();
 		}*/
 		
-		try {
+		/*try {
 			Gson gson = new Gson();
 			Reader json = Files.newBufferedReader(Paths.get("/home/step/Downloads/ultimate.json"));
 			Map map2 = gson.fromJson(json, Map.class);
 			List<String> urls = (List<String>) map2.get("tree");
 			//System.out.println(url.getClass());
 			System.out.println(urls);
-			/*line = url.get(0);
-			System.out.println(line);*/
+			line = urls.get(0);
+			//System.out.println(line);
 			String[] array = urls.toArray(new String[0]);
 			//var player = new PlayMP3();
 			PlayMP3.play(array);
 		} catch (Exception ex) {
 		    ex.printStackTrace();
+		}*/
+		
+		try {
+			Db0.testDb();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		SwingUtilities.invokeLater(Controller::new);
