@@ -48,14 +48,18 @@ public class Dict0 {
 	sql = "select word, url from dic0";
 	var rs = stmt.executeQuery(sql);
 	
-	while(rs.next()) {
+	/*while(rs.next()) {
 		String word = rs.getString("word");
 		String url = rs.getString("url");
 		
 		//re = id;
 		
 		System.out.println(word + ": " + url);
-	}
+	}*/
+	
+	sql = "select * from dic0 where word='accumulate'";
+	rs = stmt.executeQuery(sql);
+	System.out.println(rs.getString("url"));
 	
 	stmt.close();
 	conn.close();

@@ -49,7 +49,7 @@ public class App {
 			//System.out.println(line);
 			String[] array = urls.toArray(new String[0]);
 			//var player = new PlayMP3();
-			PlayMP3.play(array);
+			//PlayMP3.play(array);
 		} catch (Exception ex) {
 		    ex.printStackTrace();
 		}
@@ -61,12 +61,12 @@ public class App {
 			e.printStackTrace();
 		}
 		
-		/*try {
+		try {
 			Dict0.testDb();
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 		
 		SwingUtilities.invokeLater(Controller::new);
 	}
