@@ -9,22 +9,22 @@ import jaco.mp3.player.MP3Player;
 public class PlayMP3 {
 	public static MP3Player mp3Player;
 	
-    //public static void main(String[] args) {
-	//public static void audio(String urlString) {
 	public static void play(String[] urlString) {
         try {
-            //var url = new URL(urlString);
 
-            //mp3Player = new MP3Player(url);
             mp3Player = new MP3Player();
             for(int i = 0; i < urlString.length; i++) {
             	var url = new URL(urlString[i]);
+            	System.out.println(url + ": " + url.getQuery());
+            	 System.out.println("!");
             	mp3Player.addToPlayList(url);
             }
             //mp3Player.setRepeat(true);
             //mp3Player.addToPlayList(url);
             
             mp3Player.play();
+            
+            System.out.println("!" + mp3Player.getPlayList());
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
