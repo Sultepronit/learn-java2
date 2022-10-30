@@ -1,17 +1,17 @@
 package app.gui;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import app.PlayMP3;
@@ -27,9 +27,16 @@ public class AddCardPanel extends JPanel {
 	private static int listIndex = 0;
 
 	public AddCardPanel() {
-		var wordField = new JTextField(30);
-		var transcField = new JTextField(30);
-		var translField = new JTextField(80);
+		var wordField = new JTextField(20);
+		wordField.setFont(new Font("Arial", Font.PLAIN, 30));
+		
+		var transcField = new JTextField(20);
+		transcField.setFont(new Font("Arial", Font.PLAIN, 30));
+		
+		//var translField = new JTextField(80);
+		var translField = new JTextArea("", 4, 40);
+		translField.setFont(new Font("Arial", Font.PLAIN, 30));
+		
 		//var translField = new JTextField(Db0.re + "*");
 		//var translField = new JTextField();
 		//var soundUrlField = new JTextField(80);

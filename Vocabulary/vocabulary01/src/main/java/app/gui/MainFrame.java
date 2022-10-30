@@ -15,7 +15,8 @@ public class MainFrame extends JFrame {
 		
 		add(splitPane);
 		
-		setSize(1000, 800);
+		//setSize(1000, 800);
+		setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 	}
