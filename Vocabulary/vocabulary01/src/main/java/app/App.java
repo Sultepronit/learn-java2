@@ -18,7 +18,7 @@ public class App {
 	public static void main(String[] args) {
 		System.out.println("Hello there");
 		
-		String urls = null;
+		/*String urls = null;
 		try {
 			//urls = Dict0.testDb();
 			urls = Database.getUrlsList("some");
@@ -27,7 +27,7 @@ public class App {
 			e.printStackTrace();
 		}
 		
-		var array = urls.split("\\+++");
+		var array = urls.split("\\+++");*/
 		/*System.out.println(array[0]);
 		System.out.println(array[1]);*/
 		

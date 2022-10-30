@@ -1,17 +1,30 @@
 package app.gui;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import app.App;
-import app.database.Db0;
+import app.PlayMP3;
+import app.database.Database;
 
 public class AddCardPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
+	
+	private static JLabel soundUrlLabel = new JLabel();
+	
+	private static String currentWord = null; 
+	private static ArrayList<String> urlList = null;
+	private static int listIndex = 0;
 
 	public AddCardPanel() {
 		var wordField = new JTextField(30);
@@ -19,19 +32,57 @@ public class AddCardPanel extends JPanel {
 		var translField = new JTextField(80);
 		//var translField = new JTextField(Db0.re + "*");
 		//var translField = new JTextField();
-		var soundUrdField = new JTextField(80);
-		//var soundUrdField = new JTextField(App.line);
+		//var soundUrlField = new JTextField(80);
+		//var soundUrlLabel = new JLabel();
+		//var soundUrlLabel = new JTextArea("*");
+		//var soundUrlLabel = new JTextField(80);
+		var scrollPane = new JScrollPane(soundUrlLabel);
+		//scrollPane.setSize(100, 100);
+		//scrollPane.setSize(new Dimension(150, 410));
+		scrollPane.setPreferredSize(new Dimension(950, 110));
 		
 		var playButton = new JButton("Play");
-		playButton.addActionListener(e -> {
+		playButton.addActionListener(arg -> {
 			String word = wordField.getText();
-			System.out.println(word);
+			if(word.equals(currentWord)) {
+				listIndex++;
+				if(listIndex == urlList.size()) {
+					listIndex = 0;
+				}
+				playList();
+			} else {
+				currentWord = word;
+				System.out.println(word);
+				String urls = null;
+				try {
+					urls = Database.getUrlsList(word);
+				} catch (ClassNotFoundException | SQLException e) {
+					e.printStackTrace();
+				}
+				var array = urls.split("\\+++");
+				//urlList = (ArrayList<String>) Arrays.asList(array);
+				urlList = new ArrayList<>();
+				for(var url: array) {
+					urlList.add(url);
+				}
+				//urlList.remove(0);
+				listIndex = 0;
+				playList();
+				//PlayMP3.play(array[0]);
+			}
 		});
-		var addButton = new JButton("Save");
 		
-		/*add(wordField);
-		add(transcField);
-		add(translField);*/
+		var delButton = new JButton("Delete");
+		delButton.addActionListener(arg -> {
+			System.out.println("delete");
+			urlList.remove(listIndex);
+			if(listIndex == urlList.size()) {
+				listIndex = 0;
+			}
+			playList();
+		});
+		
+		var addButton = new JButton("Save");
 		
 		setLayout(new GridBagLayout());
 		var gc = new GridBagConstraints();
@@ -49,7 +100,8 @@ public class AddCardPanel extends JPanel {
 		add(playButton, gc);
 		
 		gc.gridx++;
-		add(addButton, gc);
+		//add(addButton, gc);
+		add(delButton, gc);
 		
 		gc.gridwidth = 4;
 		gc.gridx = 0;
@@ -59,11 +111,27 @@ public class AddCardPanel extends JPanel {
 		add(translField, gc);
 		
 		gc.gridy++;
-		add(soundUrdField, gc);
+		//add(soundUrlField, gc);
+		//add(soundUrlLabel, gc);
+		add(scrollPane, gc);
 		
 		/*gc.gridx = 3;
 		add(playButton, gc);*/
 	}
 	
+	private static void playList() {
+		PlayMP3.play(urlList.get(listIndex));
+		var builder = new StringBuilder("<html>");
+		for(int i = 0; i < urlList.size(); i++) {
+			if(i == listIndex) {
+				builder.append("<p style='color:blue'>");
+			} else {
+				builder.append("<p>");
+			}
+			builder.append(urlList.get(i)).append("</p>");
+		}
+		builder.append("</html>");
+		soundUrlLabel.setText(builder.toString());
+	}
 	
 }
