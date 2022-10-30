@@ -3,7 +3,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>vocabulary</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Vocabulary0</name>
+	<name>vocabulary</name>
 
 	<properties>
 		<maven.compiler.source>17</maven.compiler.source>
