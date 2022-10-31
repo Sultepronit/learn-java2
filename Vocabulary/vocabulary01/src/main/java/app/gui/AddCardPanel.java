@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 
 import app.PlayMP3;
 import app.database.Database;
+import app.model.WordCard;
 
 public class AddCardPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -36,13 +37,11 @@ public class AddCardPanel extends JPanel {
 		//var translField = new JTextField(80);
 		var translField = new JTextArea("", 4, 40);
 		translField.setFont(new Font("Arial", Font.PLAIN, 30));
+		translField.setLineWrap(true);
 		
-		//var translField = new JTextField(Db0.re + "*");
-		//var translField = new JTextField();
-		//var soundUrlField = new JTextField(80);
-		//var soundUrlLabel = new JLabel();
-		//var soundUrlLabel = new JTextArea("*");
-		//var soundUrlLabel = new JTextField(80);
+		var exampleField = new JTextField(40);
+		exampleField.setFont(new Font("Roman", Font.PLAIN, 30));
+		
 		var scrollPane = new JScrollPane(soundUrlLabel);
 		//scrollPane.setSize(100, 100);
 		//scrollPane.setSize(new Dimension(150, 410));
@@ -81,7 +80,7 @@ public class AddCardPanel extends JPanel {
 		
 		var delButton = new JButton("Delete");
 		delButton.addActionListener(arg -> {
-			System.out.println("delete");
+			//System.out.println("delete");
 			urlList.remove(listIndex);
 			if(listIndex == urlList.size()) {
 				listIndex = 0;
@@ -89,7 +88,15 @@ public class AddCardPanel extends JPanel {
 			playList();
 		});
 		
-		var addButton = new JButton("Save");
+		var saveButton = new JButton("Save");
+		saveButton.addActionListener(arg -> {
+			System.out.println("save!");
+			String transc = transcField.getText();
+			String transl = translField.getText();
+			String example = exampleField.getText();
+			var card = new WordCard(currentWord, transc, transl, example, urlList);
+			System.out.println(card);
+		});
 		
 		setLayout(new GridBagLayout());
 		var gc = new GridBagConstraints();
@@ -118,12 +125,16 @@ public class AddCardPanel extends JPanel {
 		add(translField, gc);
 		
 		gc.gridy++;
+		add(exampleField, gc);
+		
+		gc.gridy++;
 		//add(soundUrlField, gc);
 		//add(soundUrlLabel, gc);
 		add(scrollPane, gc);
 		
-		/*gc.gridx = 3;
-		add(playButton, gc);*/
+		gc.gridy++;
+		gc.anchor = GridBagConstraints.LINE_END;
+		add(saveButton, gc);
 	}
 	
 	private static void playList() {
