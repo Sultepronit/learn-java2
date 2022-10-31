@@ -96,6 +96,11 @@ public class AddCardPanel extends JPanel {
 			String example = exampleField.getText();
 			var card = new WordCard(currentWord, transc, transl, example, urlList);
 			System.out.println(card);
+			try {
+				Database.saveCard(card);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		});
 		
 		setLayout(new GridBagLayout());
