@@ -9,6 +9,9 @@ public class WordCard {
 	private String transl;
 	private String example;
 	private ArrayList<String> mp3urls;
+	private int status;
+	private int forward;
+	private int backward;
 	
 	public WordCard(String word, String transc, String transl, String example, ArrayList<String> mp3urls) {
 		this.id = 0;
@@ -17,12 +20,16 @@ public class WordCard {
 		this.transl = transl;
 		this.example = example;
 		this.mp3urls = mp3urls;
+		this.status = 0;
+		this.forward = 0;
+		this.backward = 0;
 	}
 
 	@Override
 	public String toString() {
 		return "WordCard [id=" + id + ", word=" + word + ", transc=" + transc + ", transl=" + transl + ", example="
-				+ example + ", mp3urls=" + mp3urls + "]";
+				+ example + ", mp3urls=" + mp3urls + ", status=" + status + ", forward=" + forward + ", backward="
+				+ backward + "]";
 	}
 
 	public int getId() {
