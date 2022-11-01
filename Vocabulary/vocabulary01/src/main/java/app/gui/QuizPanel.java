@@ -8,41 +8,58 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import app.GetKey;
 import app.model.WordCard;
 
 public class QuizPanel extends JPanel {
 	
+	private static WordCard card = null;
+	
 	public static JLabel wordLabel = new JLabel("word", SwingConstants.CENTER);
 	public static JLabel transcLabel = new JLabel("transcription", SwingConstants.CENTER);
+	public static JLabel translLabel = new JLabel("transl", SwingConstants.CENTER);
+	public static JLabel exampleLabel = new JLabel("example", SwingConstants.CENTER);
 	
-	public static void startForward(WordCard card) {
+	public static GetKey getKey = new GetKey();
+	
+	public static void startForward(WordCard c) {
+		card = c;
 		System.out.println("Do!");
 		wordLabel.setText(card.getWord());
 		transcLabel.setText(" ");
+		translLabel.setText(" ");
+		exampleLabel.setText(" ");
+	}
+	
+	public static void showForward() {
+		transcLabel.setText(card.getTransc());
+		translLabel.setText(card.getTransl());
+		exampleLabel.setText(card.getExample());
 	}
 	
 	public QuizPanel() {
+		var typeIn = new JLabel("a");
+		typeIn.setText(typeIn.getText() + "b");
 		/*var typeField = new JTextField(20);
 		typeField.setFont(new Font("Ubuntu", Font.PLAIN, 30));*/
 		
 		//var wordLabel = new JLabel("word", SwingConstants.CENTER);
 		wordLabel.setOpaque(true);
 		wordLabel.setBackground(Color.white);
-		wordLabel.setFont(new Font("Ubuntu", Font.PLAIN, 30));
+		wordLabel.setFont(new Font("Nimbus Roman", Font.PLAIN, 30));
 		//wordLabel.setVisible(false);
 		
 		//var transcLabel = new JLabel("transcription", SwingConstants.CENTER);
 		transcLabel.setOpaque(true);
 		transcLabel.setBackground(Color.white);
-		transcLabel.setFont(new Font("Ubuntu", Font.PLAIN, 30));
+		transcLabel.setFont(new Font("Arial", Font.PLAIN, 30));
 		
 		var trsl = "<html>translation, translation, translation, translation</html>";
 		//var translLabel = new JLabel("translation", SwingConstants.CENTER);
 		//var translLabel = new JLabel(trsl, SwingConstants.CENTER);
-		var translLabel = new JLabel(trsl);
+		//var translLabel = new JLabel(trsl);
 		//var translLabel = new JTextArea(trsl);
 		translLabel.setOpaque(true);
 		translLabel.setBackground(Color.white);
@@ -55,6 +72,8 @@ public class QuizPanel extends JPanel {
 		//wordPanel.setSize(new Dimension(1000,500));
 		
 		var mainPane = new JPanel();
+		mainPane.setFocusable(true);
+		mainPane.addKeyListener(getKey);
 		mainPane.setBackground(Color.YELLOW);
 		//mainPane.setBackground(Color.white);
 		setLayout(new BorderLayout());
@@ -79,6 +98,9 @@ public class QuizPanel extends JPanel {
 		gc.fill = GridBagConstraints.HORIZONTAL;
 		//gc.anchor = GridBagConstraints.LAST_LINE_END;*/
 		mainPane.add(translLabel, gc);
+		
+		gc.gridy++;
+		mainPane.add(exampleLabel, gc);
 		
 		
 		/*setLayout(new BorderLayout());
@@ -124,4 +146,8 @@ public class QuizPanel extends JPanel {
 		
 		//add(wordLabel);
 	}
+	
+	/*public static void setCard(WordCard sCard) {
+		card = sCard;
+	}*/
 }

@@ -12,6 +12,8 @@ public class Quiz {
 	
 	public static ArrayList<WordCard> cardList = null;
 	public static WordCard card = null;
+	public static Random random = new Random();
+	public static int cIndex = 0;
 	
 	public static void start() {
 		//ArrayList<WordCard> cardList = new ArrayList<WordCard>();
@@ -22,13 +24,21 @@ public class Quiz {
 			e.printStackTrace();
 		}
 		
-		Random random = new Random();
-		var cIndex = random.nextInt(cardList.size());
-		//var cIndex = random.nextInt(2);
+		//Random random = new Random();
+		cIndex = random.nextInt(cardList.size());
+		//cIndex = random.nextInt(2);
 		System.out.println(cIndex);
 		card = cardList.get(cIndex);
 		System.out.println(card);
 		//QuizPanel(cardList.get(cIndex));
+		QuizPanel.startForward(card);
+	}
+	
+	public static void next() {
+		cIndex = random.nextInt(cardList.size());
+		System.out.println(cIndex);
+		card = cardList.get(cIndex);
+		System.out.println(card);
 		QuizPanel.startForward(card);
 	}
 }
