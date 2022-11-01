@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import app.model.WordCard;
 
@@ -74,5 +75,35 @@ public class Database {
 		System.out.println("Done!");
 		stmt.close();
 		conn.close();
+	}
+	
+	public static ArrayList<WordCard> getCardList() throws SQLException {
+		ArrayList<WordCard> list = new ArrayList<>();
+		
+		conn = DriverManager.getConnection(dbUrl);
+		stmt = conn.createStatement();
+		
+		var sql = "SELECT * FROM vocab";
+		var rs = stmt.executeQuery(sql);
+		while(rs.next()) {
+			int id = rs.getInt("id");
+			String word =rs.getString("word");
+			String transc =rs.getString("transc");
+			String transl =rs.getString("transl");
+			String example =rs.getString("example");
+			String mp3urls =rs.getString("mp3urls");
+			int status = rs.getInt("status");
+			int forward = rs.getInt("forward");
+			int backward = rs.getInt("backward");
+			//System.out.println(id + ": " + word + ": " + transl);
+			var card = new WordCard(id, word, transc, transl, example, mp3urls, status, forward, backward);
+			System.out.println(card);
+			list.add(card);
+		}
+		//System.out.println(list);
+			
+		stmt.close();
+		conn.close();
+		return list;
 	}
 }

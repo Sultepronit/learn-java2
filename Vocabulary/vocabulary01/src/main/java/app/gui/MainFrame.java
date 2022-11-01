@@ -13,7 +13,18 @@ public class MainFrame extends JFrame {
 		splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, upperPanel, lowerPanel);
 		//splitPane.setResizeWeight(0.3);
 		
-		add(splitPane);
+		/*add(splitPane);
+		splitPane.setVisible(true);
+		
+		var quizPanel = new JPanel();
+		add(quizPanel);
+		quizPanel.setVisible(false);
+		splitPane.setVisible(true);
+		add(splitPane);*/
+		getContentPane().add(splitPane);
+		getContentPane().removeAll();
+		var quizPanel = new QuizPanel();
+		getContentPane().add(quizPanel);
 		
 		//setSize(1000, 800);
 		setExtendedState(JFrame.MAXIMIZED_BOTH); 

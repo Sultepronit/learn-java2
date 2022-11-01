@@ -25,6 +25,24 @@ public class WordCard {
 		this.backward = 0;
 	}
 
+	public WordCard(int id, String word, String transc, String transl, String example, String mp3urls,
+			int status, int forward, int backward) {
+		this.id = id;
+		this.word = word;
+		this.transc = transc;
+		this.transl = transl;
+		this.example = example;
+		var array = mp3urls.split("\\+++");
+		//urlList = (ArrayList<String>) Arrays.asList(array);
+		this.mp3urls = new ArrayList<>();
+		for(var url: array) {
+			this.mp3urls.add(url);
+		}
+		this.status = status;
+		this.forward = forward;
+		this.backward = backward;
+	}
+
 	@Override
 	public String toString() {
 		return "WordCard [id=" + id + ", word=" + word + ", transc=" + transc + ", transl=" + transl + ", example="

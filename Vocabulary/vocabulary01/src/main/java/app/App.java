@@ -18,20 +18,7 @@ public class App {
 	public static void main(String[] args) {
 		System.out.println("Hello there");
 		
-		/*String urls = null;
-		try {
-			//urls = Dict0.testDb();
-			urls = Database.getUrlsList("some");
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		var array = urls.split("\\+++");*/
-		/*System.out.println(array[0]);
-		System.out.println(array[1]);*/
-		
-		//PlayMP3.play(array);
+		Quiz.start();
 		
 		SwingUtilities.invokeLater(Controller::new);
 	}
