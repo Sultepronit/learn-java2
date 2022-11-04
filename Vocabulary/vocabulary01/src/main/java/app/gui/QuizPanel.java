@@ -30,7 +30,8 @@ public class QuizPanel extends JPanel {
 	
 	public static void startForward(WordCard c) {
 		card = c;
-		System.out.println("Do!");
+		//System.out.println("Do!");
+		statusMark.setBackground(Color.white);
 		typeIn.setVisible(false);
 		wordLabel.setText(card.getWord());
 		transcLabel.setText(" ");

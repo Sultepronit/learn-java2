@@ -83,6 +83,10 @@ public class Quiz {
 			}
 		} else if(stage == Stage.TRAINING) {
 			getTrainWord(command);
+		} else { // EXIT
+			if(command == '\n') {
+				next();
+			}
 		}
 	}
 	
