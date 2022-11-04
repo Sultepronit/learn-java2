@@ -39,10 +39,27 @@ public class QuizPanel extends JPanel {
 		exampleLabel.setText(" ");
 	}
 	
+	public static void startBackward(WordCard c) {
+		card = c;
+		statusMark.setBackground(Color.white);
+		typeIn.setText("_");
+		typeIn.setVisible(true);
+		wordLabel.setText(" ");
+		transcLabel.setText(" ");
+		translLabel.setText(card.getTransl());
+		exampleLabel.setText(" ");
+	}
+	
 	public static void showForward() {
 		//typeIn.setVisible(true);
 		transcLabel.setText(card.getTransc());
 		translLabel.setText(card.getTransl());
+		exampleLabel.setText(card.getExample());
+	}
+	
+	public static void showBackward() {
+		wordLabel.setText(card.getWord());
+		transcLabel.setText(card.getTransc());
 		exampleLabel.setText(card.getExample());
 	}
 	
@@ -56,8 +73,8 @@ public class QuizPanel extends JPanel {
 		}
 	}
 	
-	public static void train(String typedIn) {
-		typeIn.setVisible(true);
+	public static void typeIn(String typedIn) {
+		//typeIn.setVisible(true);
 		typeIn.setText(typedIn);
 	}
 	
@@ -67,7 +84,7 @@ public class QuizPanel extends JPanel {
 		statusMark.setPreferredSize(new Dimension(30, 30));
 		//statusMark.setFont(new Font("Nimbus Roman", Font.ITALIC, 40));
 		
-		typeIn.setText(typeIn.getText() + "b");
+		//typeIn.setText(typeIn.getText() + "b");
 		typeIn.setOpaque(true);
 		typeIn.setBackground(Color.white);
 		typeIn.setFont(new Font("Nimbus Roman", Font.ITALIC, 40));

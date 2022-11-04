@@ -19,8 +19,6 @@ public class Quiz {
 	private static Random random = new Random();
 	private static int cIndex = 0;
 	private static boolean isForward = true;
-	//private static short stage = 0;
-	//private static String stage = null;
 	private static Stage stage;
 	private static boolean isEvaluated;
 	private static StringBuilder typedWord;
@@ -40,10 +38,14 @@ public class Quiz {
 	public static void next() {
 		cIndex = random.nextInt(cardList.size());
 		card = cardList.get(cIndex);
-		QuizPanel.startForward(card);
-		isForward = true;
-		//stage = 0;
-		//stage = "question";
+		
+		//QuizPanel.startForward(card);
+		//isForward = true;
+		
+		QuizPanel.startBackward(card);
+		isForward = false;
+		typedWord = new StringBuilder();
+		
 		stage = Stage.QUESTION;
 		
 		System.out.println(cIndex);
@@ -63,7 +65,19 @@ public class Quiz {
 				}
 			}
 			else { //backward
-				
+				if(command == '\n') {
+					QuizPanel.showBackward();
+					play();
+					stage = Stage.EVALUATION;
+					if(!isForward) {
+						if(typedWord.toString().equals(card.getWord())) {
+							isEvaluated = true;
+							QuizPanel.mark(1);
+						}
+					}
+				} else {
+					getWordOfQuestion(command);
+				}
 			}
 		} else if(stage == Stage.EVALUATION) {
 			//System.out.println("evaluate!");
@@ -77,9 +91,17 @@ public class Quiz {
 				isEvaluated = true;
 				QuizPanel.mark(0);
 			} else if(isEvaluated && command == '\n') {
-				stage = Stage.TRAINING;
-				typedWord = new StringBuilder();
-				getTrainWord('_');
+				/*if(!isForward && ) {
+					if(typedWord.toString().equals(card.getWord())) {
+				}*/
+				if(typedWord.toString().equals(card.getWord())) {
+					//stage = Stage.EXIT;
+					next();
+				} else {
+					stage = Stage.TRAINING;
+					typedWord = new StringBuilder();
+					getTrainWord('_');
+				}
 			}
 		} else if(stage == Stage.TRAINING) {
 			getTrainWord(command);
@@ -89,7 +111,6 @@ public class Quiz {
 			}
 		}
 	}
-	
 	
 	private static void getTrainWord(char c) {
 		//System.out.println("training!");
@@ -104,9 +125,20 @@ public class Quiz {
 		} else {
 			printOut.append("_");
 		}
-		QuizPanel.train(printOut.toString());
+		QuizPanel.typeIn(printOut.toString());
 	}
 	
+	private static void getWordOfQuestion(char c) {
+		//System.out.println("training!");
+		if(c == '\b') {
+			typedWord.deleteCharAt(typedWord.length() - 1);
+		} else if(c != '_') {
+			typedWord.append(c);
+		}
+		var printOut = new StringBuilder(typedWord);
+		printOut.append("_");
+		QuizPanel.typeIn(printOut.toString());
+	}
 	
 	private static void play() {
 		var i = random.nextInt(card.getMp3urls().size());
