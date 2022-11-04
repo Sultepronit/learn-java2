@@ -9,7 +9,7 @@ import app.gui.QuizPanel;
 import app.model.WordCard;
 
 enum Stage {
-	QUESTION, EVALUATION, TRAINING
+	QUESTION, EVALUATION, TRAINING, EXIT
 }
 
 public class Quiz {
@@ -23,6 +23,7 @@ public class Quiz {
 	//private static String stage = null;
 	private static Stage stage;
 	private static boolean isEvaluated;
+	private static StringBuilder typedWord;
 	
 	public static void start() {
 		//ArrayList<WordCard> cardList = new ArrayList<WordCard>();
@@ -65,7 +66,7 @@ public class Quiz {
 				
 			}
 		} else if(stage == Stage.EVALUATION) {
-			System.out.println("evaluate!");
+			//System.out.println("evaluate!");
 			if(command == 'g') {
 				isEvaluated = true;
 				QuizPanel.mark(1);
@@ -77,29 +78,31 @@ public class Quiz {
 				QuizPanel.mark(0);
 			} else if(isEvaluated && command == '\n') {
 				stage = Stage.TRAINING;
+				typedWord = new StringBuilder();
+				getTrainWord('_');
 			}
+		} else if(stage == Stage.TRAINING) {
+			getTrainWord(command);
 		}
 	}
 	
-	/*public static void react(char command) {
-		System.out.print(command);
-		if(command == '') {
-			play();
-		} else if(isForward) {
-			if(stage == "question") { //word
-				if(command == '\n') {
-					QuizPanel.showForward();
-					play();
-					stage = "evaluation";
-				}
-			}
-			else {
-				
-			}
-		} else { // backward
-			
+	
+	private static void getTrainWord(char c) {
+		//System.out.println("training!");
+		if(c == '\b') {
+			typedWord.deleteCharAt(typedWord.length() - 1);
+		} else if(c != '_') {
+			typedWord.append(c);
 		}
-	}*/
+		var printOut = new StringBuilder(typedWord);
+		if(typedWord.toString().equals(card.getWord())) {
+			stage = Stage.EXIT;
+		} else {
+			printOut.append("_");
+		}
+		QuizPanel.train(printOut.toString());
+	}
+	
 	
 	private static void play() {
 		var i = random.nextInt(card.getMp3urls().size());
