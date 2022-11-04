@@ -8,14 +8,9 @@ import app.gui.QuizPanel;
 public class GetKey implements KeyListener {
 
 	public void keyTyped(KeyEvent e) {
-		char k = e.getKeyChar();
-		//var code = e.getKeyCode();
+		Quiz.react(e.getKeyChar());
+		/*char k = e.getKeyChar();
 		System.out.print(k);
-		//System.out.print(code);
-		
-		/*if(code == KeyEvent.VK_ENTER) {
-			System.out.println("enter");
-		}*/
 		
 		switch(k) {
 			case 's':
@@ -24,7 +19,10 @@ public class GetKey implements KeyListener {
 			case '\n':
 				Quiz.next();
 				break;
-		}
+			case '\b':
+				System.out.println("BaaaaK!");
+				break;
+		}*/
 	}
 
 	public void keyPressed(KeyEvent e) {}

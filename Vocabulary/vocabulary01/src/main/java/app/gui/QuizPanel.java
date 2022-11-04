@@ -2,6 +2,7 @@ package app.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -17,16 +18,20 @@ public class QuizPanel extends JPanel {
 	
 	private static WordCard card = null;
 	
+	//public static JLabel statusMark = new JLabel(2);
+	public static JPanel statusMark = new JPanel();
 	public static JLabel wordLabel = new JLabel("word", SwingConstants.CENTER);
 	public static JLabel transcLabel = new JLabel("transcription", SwingConstants.CENTER);
 	public static JLabel translLabel = new JLabel("transl", SwingConstants.CENTER);
 	public static JLabel exampleLabel = new JLabel("example", SwingConstants.CENTER);
+	public static JLabel typeIn = new JLabel("_");
 	
 	public static GetKey getKey = new GetKey();
 	
 	public static void startForward(WordCard c) {
 		card = c;
 		System.out.println("Do!");
+		typeIn.setVisible(false);
 		wordLabel.setText(card.getWord());
 		transcLabel.setText(" ");
 		translLabel.setText(" ");
@@ -34,21 +39,30 @@ public class QuizPanel extends JPanel {
 	}
 	
 	public static void showForward() {
+		typeIn.setVisible(true);
 		transcLabel.setText(card.getTransc());
 		translLabel.setText(card.getTransl());
 		exampleLabel.setText(card.getExample());
 	}
 	
 	public QuizPanel() {
-		var typeIn = new JLabel("a");
+		statusMark.setOpaque(true);
+		statusMark.setBackground(Color.white);
+		statusMark.setPreferredSize(new Dimension(30, 30));
+		//statusMark.setFont(new Font("Nimbus Roman", Font.ITALIC, 40));
+		
 		typeIn.setText(typeIn.getText() + "b");
+		typeIn.setOpaque(true);
+		typeIn.setBackground(Color.white);
+		typeIn.setFont(new Font("Nimbus Roman", Font.ITALIC, 40));
+		//typeIn.setVisible(false);
 		/*var typeField = new JTextField(20);
 		typeField.setFont(new Font("Ubuntu", Font.PLAIN, 30));*/
 		
 		//var wordLabel = new JLabel("word", SwingConstants.CENTER);
 		wordLabel.setOpaque(true);
 		wordLabel.setBackground(Color.white);
-		wordLabel.setFont(new Font("Nimbus Roman", Font.PLAIN, 30));
+		wordLabel.setFont(new Font("Nimbus Roman", Font.PLAIN, 40));
 		//wordLabel.setVisible(false);
 		
 		//var transcLabel = new JLabel("transcription", SwingConstants.CENTER);
@@ -84,9 +98,16 @@ public class QuizPanel extends JPanel {
 		gc.gridwidth = 1;
 		gc.gridx = 0;
 		gc.gridy = 0;
-		//gc.fill = GridBagConstraints.HORIZONTAL;
+		gc.weightx = 0.1;
+		gc.anchor = GridBagConstraints.FIRST_LINE_START;
+		mainPane.add(statusMark, gc);
+		//gc.gridx++;
+		gc.gridwidth = 2;
+		gc.weightx = 20;
+		gc.anchor = GridBagConstraints.CENTER;
 		
-		//mainPane.add(typeField, gc);
+		gc.gridy++;
+		mainPane.add(typeIn, gc);
 		
 		gc.gridy++;
 		mainPane.add(wordLabel, gc);
