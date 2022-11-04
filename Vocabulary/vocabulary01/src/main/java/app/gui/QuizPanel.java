@@ -39,14 +39,29 @@ public class QuizPanel extends JPanel {
 	}
 	
 	public static void showForward() {
-		typeIn.setVisible(true);
+		//typeIn.setVisible(true);
 		transcLabel.setText(card.getTransc());
 		translLabel.setText(card.getTransl());
 		exampleLabel.setText(card.getExample());
 	}
 	
+	public static void mark(int isGood) {
+		if(isGood == 1) {
+			statusMark.setBackground(Color.green);
+		} else if(isGood == -1) {
+			statusMark.setBackground(Color.red);
+		} else { // 0
+			statusMark.setBackground(Color.yellow);
+		}
+	}
+	
+	public static void train(String typedIn) {
+		typeIn.setVisible(true);
+		typeIn.setText(typedIn);
+	}
+	
 	public QuizPanel() {
-		statusMark.setOpaque(true);
+		//statusMark.setOpaque(true);
 		statusMark.setBackground(Color.white);
 		statusMark.setPreferredSize(new Dimension(30, 30));
 		//statusMark.setFont(new Font("Nimbus Roman", Font.ITALIC, 40));
@@ -88,7 +103,7 @@ public class QuizPanel extends JPanel {
 		var mainPane = new JPanel();
 		mainPane.setFocusable(true);
 		mainPane.addKeyListener(getKey);
-		mainPane.setBackground(Color.YELLOW);
+		//mainPane.setBackground(Color.YELLOW);
 		//mainPane.setBackground(Color.white);
 		setLayout(new BorderLayout());
 		add(mainPane, BorderLayout.PAGE_START);

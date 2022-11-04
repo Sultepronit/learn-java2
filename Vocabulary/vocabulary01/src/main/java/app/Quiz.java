@@ -22,13 +22,7 @@ public class Quiz {
 	//private static short stage = 0;
 	//private static String stage = null;
 	private static Stage stage;
-	//question
-	//evaluation
-	//training
-	
-	//question
-	//evaluation
-	//training
+	private static boolean isEvaluated;
 	
 	public static void start() {
 		//ArrayList<WordCard> cardList = new ArrayList<WordCard>();
@@ -71,7 +65,19 @@ public class Quiz {
 				
 			}
 		} else if(stage == Stage.EVALUATION) {
-			
+			System.out.println("evaluate!");
+			if(command == 'g') {
+				isEvaluated = true;
+				QuizPanel.mark(1);
+			} else if(command == 'b') {
+				isEvaluated = true;
+				QuizPanel.mark(-1);
+			} else if(command == 'n') {
+				isEvaluated = true;
+				QuizPanel.mark(0);
+			} else if(isEvaluated && command == '\n') {
+				stage = Stage.TRAINING;
+			}
 		}
 	}
 	
