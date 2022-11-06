@@ -85,7 +85,7 @@ public class Quiz {
 				getWordOfQuestion(command);
 			}
 		} else if(stage == Stage.EVALUATION) {
-			System.out.println("evaluate!");
+			//System.out.println("evaluate!");
 			if(command == 'g') {
 				isEvaluated = true;
 				QuizPanel.mark(1);
@@ -101,7 +101,6 @@ public class Quiz {
 				} else {
 					stage = Stage.TRAINING;
 					typedWord = new StringBuilder();
-					//getTrainWord('_');
 					QuizPanel.typeIn("_");
 				}
 			}
