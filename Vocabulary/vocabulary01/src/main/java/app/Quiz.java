@@ -22,6 +22,7 @@ public class Quiz {
 	private static Stage stage;
 	private static boolean isEvaluated;
 	private static StringBuilder typedWord = new StringBuilder();
+	private static boolean isCorrect = false;
 	
 	public static void start() {
 		try {
@@ -35,6 +36,7 @@ public class Quiz {
 	
 	public static void next() {
 		isEvaluated = false;
+		isCorrect = false;
 		typedWord = new StringBuilder();
 		cIndex = random.nextInt(cardList.size());
 		card = cardList.get(cIndex);
@@ -67,13 +69,17 @@ public class Quiz {
 				stage = Stage.EVALUATION;
 				
 				if(!isForward) {
+					isEvaluated = true;
 					if(typedWord.toString().equals(card.getWord())) {
-						isEvaluated = true;
+						isCorrect = true;
 						QuizPanel.mark(1);
+						typedWord.insert(0, "<html><p style='color:blue'>");
 					} else {
-						isEvaluated = true;
 						QuizPanel.mark(-1);
+						typedWord.insert(0, "<html><p style='color:red'>");
 					}
+					typedWord.append("</p></html>");
+					QuizPanel.typeIn(typedWord.toString());
 				}
 			} else if(!isForward) {
 				getWordOfQuestion(command);
@@ -90,13 +96,13 @@ public class Quiz {
 				isEvaluated = true;
 				QuizPanel.mark(0);
 			} else if(isEvaluated && command == '\n') {
-				if(typedWord.toString().equals(card.getWord())) {
-					//stage = Stage.EXIT;
+				if(isCorrect) {
 					next();
 				} else {
 					stage = Stage.TRAINING;
 					typedWord = new StringBuilder();
-					getTrainWord('_');
+					//getTrainWord('_');
+					QuizPanel.typeIn("_");
 				}
 			}
 		} else if(stage == Stage.TRAINING) {
@@ -114,7 +120,7 @@ public class Quiz {
 		//System.out.println("training!");
 		if(c == '\b') {
 			typedWord.deleteCharAt(typedWord.length() - 1);
-		} else if(c != '_') {
+		} else {
 			typedWord.append(c);
 		}
 		var printOut = new StringBuilder(typedWord);
