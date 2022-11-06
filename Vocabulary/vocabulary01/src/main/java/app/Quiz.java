@@ -61,30 +61,22 @@ public class Quiz {
 		if(command == '') {
 			play();
 		} else if(stage == Stage.QUESTION) {
-			if(isForward) { 
-				if(command == '\n') {
-					QuizPanel.showForward();
-					play();
-					stage = Stage.EVALUATION;
-				}
-			}
-			else { //backward
-				if(command == '\n') {
-					QuizPanel.showBackward();
-					play();
-					stage = Stage.EVALUATION;
-					if(!isForward) {
-						if(typedWord.toString().equals(card.getWord())) {
-							isEvaluated = true;
-							QuizPanel.mark(1);
-						} else {
-							isEvaluated = true;
-							QuizPanel.mark(-1);
-						}
+			if(command == '\n') {
+				QuizPanel.showAnswer();
+				play();
+				stage = Stage.EVALUATION;
+				
+				if(!isForward) {
+					if(typedWord.toString().equals(card.getWord())) {
+						isEvaluated = true;
+						QuizPanel.mark(1);
+					} else {
+						isEvaluated = true;
+						QuizPanel.mark(-1);
 					}
-				} else {
-					getWordOfQuestion(command);
 				}
+			} else if(!isForward) {
+				getWordOfQuestion(command);
 			}
 		} else if(stage == Stage.EVALUATION) {
 			System.out.println("evaluate!");

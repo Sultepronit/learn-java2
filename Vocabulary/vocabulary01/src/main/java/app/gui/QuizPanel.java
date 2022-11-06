@@ -17,6 +17,7 @@ import app.model.WordCard;
 public class QuizPanel extends JPanel {
 	
 	private static WordCard card = null;
+	private static boolean isForward;
 	
 	//public static JLabel statusMark = new JLabel(2);
 	public static JPanel statusMark = new JPanel();
@@ -28,19 +29,9 @@ public class QuizPanel extends JPanel {
 	
 	public static GetKey getKey = new GetKey();
 	
-	public static void startForward(WordCard c) {
+	public static void start(WordCard c, boolean forw) {
 		card = c;
-		//System.out.println("Do!");
-		statusMark.setBackground(Color.white);
-		//typeIn.setVisible(false);
-		wordLabel.setText(card.getWord());
-		transcLabel.setText(" ");
-		translLabel.setText(" ");
-		exampleLabel.setText(" ");
-	}
-	
-	public static void start(WordCard c, boolean isForward) {
-		card = c;
+		isForward = forw;
 		statusMark.setBackground(Color.white);
 		transcLabel.setText(" ");
 		exampleLabel.setText(" ");
@@ -55,26 +46,12 @@ public class QuizPanel extends JPanel {
 		}
 	}
 	
-	public static void startBackward(WordCard c) {
-		card = c;
-		statusMark.setBackground(Color.white);
-		typeIn.setText("_");
-		//typeIn.setVisible(true);
-		wordLabel.setText(" ");
-		transcLabel.setText(" ");
-		translLabel.setText(card.getTransl());
-		exampleLabel.setText(" ");
-	}
-	
-	public static void showForward() {
-		//typeIn.setVisible(true);
-		transcLabel.setText(card.getTransc());
-		translLabel.setText(card.getTransl());
-		exampleLabel.setText(card.getExample());
-	}
-	
-	public static void showBackward() {
-		wordLabel.setText(card.getWord());
+	public static void showAnswer() {
+		if(isForward) {
+			translLabel.setText(card.getTransl());
+		} else {
+			wordLabel.setText(card.getWord());
+		}
 		transcLabel.setText(card.getTransc());
 		exampleLabel.setText(card.getExample());
 	}
