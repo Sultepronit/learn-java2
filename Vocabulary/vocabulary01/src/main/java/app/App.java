@@ -20,6 +20,13 @@ public class App {
 		
 		Quiz.start();
 		
+		/*try {
+			Database.updateStats();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		
 		SwingUtilities.invokeLater(Controller::new);
 	}
 

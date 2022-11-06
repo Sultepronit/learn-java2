@@ -60,12 +60,8 @@ public class Database {
 		insertStmt.executeUpdate();
 		insertStmt.close();
 		
-		
 		sql = "SELECT id, word, transl FROM vocab";
 		var rs = stmt.executeQuery(sql);
-		//System.out.println(rs);
-		//String word = rs.getString("word");
-		//System.out.println(word);
 		while(rs.next()) {
 			int id = rs.getInt("id");
 			String word = rs.getString("word");
@@ -73,6 +69,26 @@ public class Database {
 			System.out.println(id + ": " + word + ": " + transl);
 		}
 		System.out.println("Done!");
+		stmt.close();
+		conn.close();
+	}
+	
+	public static void updateStats() throws SQLException {
+		conn = DriverManager.getConnection(dbUrl);
+		stmt = conn.createStatement();
+		
+		//var sql = "UPDATE vocab SET status = ?, forward=? WHERE id = ?";
+		var sql = "UPDATE vocab SET status=?, forward=?, backward=? WHERE id=?";
+		var updateStmt = conn.prepareStatement(sql);
+		int id = 3, status = 2, forward = 1, backward = -1;
+		updateStmt.setInt(1, status);
+		updateStmt.setInt(2, forward);
+		updateStmt.setInt(3, backward);
+		updateStmt.setInt(4, id);
+		updateStmt.executeUpdate();
+		updateStmt.close();
+		
+		System.out.println("Updated!");
 		stmt.close();
 		conn.close();
 	}
