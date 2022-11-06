@@ -106,6 +106,7 @@ public class QuizPanel extends JPanel {
 		translLabel.setFont(new Font("Ubuntu", Font.PLAIN, 30));
 		//translLabel.setLineWrap(true);
 		
+		exampleLabel.setFont(new Font("Ubuntu", Font.PLAIN, 30));
 		
 		/*var wordPanel = new JPanel();
 		wordPanel.setBackground(Color.WHITE);*/
