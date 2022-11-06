@@ -45,9 +45,8 @@ public class WordCard {
 
 	@Override
 	public String toString() {
-		return "WordCard [id=" + id + ", word=" + word + ", transc=" + transc + ", transl=" + transl + ", example="
-				+ example + ", mp3urls=" + mp3urls + ", status=" + status + ", forward=" + forward + ", backward="
-				+ backward + "]";
+		return id + ": " + status + "/" + forward + "/" + backward + ": " + word + ", transc=" + transc + ", transl=" + transl + ", example="
+				+ example + ", mp3urls=" + mp3urls;
 	}
 
 	public int getId() {
