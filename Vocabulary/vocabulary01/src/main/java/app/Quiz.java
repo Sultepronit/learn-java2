@@ -21,11 +21,9 @@ public class Quiz {
 	private static boolean isForward = true;
 	private static Stage stage;
 	private static boolean isEvaluated;
-	private static StringBuilder typedWord;
+	private static StringBuilder typedWord = new StringBuilder();
 	
 	public static void start() {
-		//ArrayList<WordCard> cardList = new ArrayList<WordCard>();
-		//ArrayList<WordCard> cardList = null;
 		try {
 			cardList = Database.getCardList();
 		} catch (SQLException e) {
@@ -36,15 +34,21 @@ public class Quiz {
 	}
 	
 	public static void next() {
+		isEvaluated = false;
+		typedWord = new StringBuilder();
 		cIndex = random.nextInt(cardList.size());
 		card = cardList.get(cIndex);
 		
-		//QuizPanel.startForward(card);
+		isForward = random.nextBoolean();
 		//isForward = true;
-		
-		QuizPanel.startBackward(card);
-		isForward = false;
-		typedWord = new StringBuilder();
+		/*if(isForward) {
+			//QuizPanel.startForward(card);
+			//QuizPanel.start(card, isForward);
+		} else {
+			QuizPanel.startBackward(card);
+			typedWord = new StringBuilder();
+		}*/
+		QuizPanel.start(card, isForward);
 		
 		stage = Stage.QUESTION;
 		
@@ -73,6 +77,9 @@ public class Quiz {
 						if(typedWord.toString().equals(card.getWord())) {
 							isEvaluated = true;
 							QuizPanel.mark(1);
+						} else {
+							isEvaluated = true;
+							QuizPanel.mark(-1);
 						}
 					}
 				} else {
@@ -80,7 +87,7 @@ public class Quiz {
 				}
 			}
 		} else if(stage == Stage.EVALUATION) {
-			//System.out.println("evaluate!");
+			System.out.println("evaluate!");
 			if(command == 'g') {
 				isEvaluated = true;
 				QuizPanel.mark(1);
@@ -91,9 +98,6 @@ public class Quiz {
 				isEvaluated = true;
 				QuizPanel.mark(0);
 			} else if(isEvaluated && command == '\n') {
-				/*if(!isForward && ) {
-					if(typedWord.toString().equals(card.getWord())) {
-				}*/
 				if(typedWord.toString().equals(card.getWord())) {
 					//stage = Stage.EXIT;
 					next();
@@ -104,8 +108,10 @@ public class Quiz {
 				}
 			}
 		} else if(stage == Stage.TRAINING) {
+			//System.out.println("train!");
 			getTrainWord(command);
 		} else { // EXIT
+			System.out.println("exit!");
 			if(command == '\n') {
 				next();
 			}
@@ -129,10 +135,9 @@ public class Quiz {
 	}
 	
 	private static void getWordOfQuestion(char c) {
-		//System.out.println("training!");
 		if(c == '\b') {
 			typedWord.deleteCharAt(typedWord.length() - 1);
-		} else if(c != '_') {
+		} else {
 			typedWord.append(c);
 		}
 		var printOut = new StringBuilder(typedWord);

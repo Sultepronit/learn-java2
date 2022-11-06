@@ -32,18 +32,34 @@ public class QuizPanel extends JPanel {
 		card = c;
 		//System.out.println("Do!");
 		statusMark.setBackground(Color.white);
-		typeIn.setVisible(false);
+		//typeIn.setVisible(false);
 		wordLabel.setText(card.getWord());
 		transcLabel.setText(" ");
 		translLabel.setText(" ");
 		exampleLabel.setText(" ");
 	}
 	
+	public static void start(WordCard c, boolean isForward) {
+		card = c;
+		statusMark.setBackground(Color.white);
+		transcLabel.setText(" ");
+		exampleLabel.setText(" ");
+		if(isForward) {
+			typeIn.setText(" ");
+			wordLabel.setText(card.getWord());
+			translLabel.setText(" ");
+		} else { // backward
+			typeIn.setText("_");
+			wordLabel.setText(" ");
+			translLabel.setText(card.getTransl());
+		}
+	}
+	
 	public static void startBackward(WordCard c) {
 		card = c;
 		statusMark.setBackground(Color.white);
 		typeIn.setText("_");
-		typeIn.setVisible(true);
+		//typeIn.setVisible(true);
 		wordLabel.setText(" ");
 		transcLabel.setText(" ");
 		translLabel.setText(card.getTransl());
@@ -122,7 +138,7 @@ public class QuizPanel extends JPanel {
 		mainPane.setFocusable(true);
 		mainPane.addKeyListener(getKey);
 		//mainPane.setBackground(Color.YELLOW);
-		//mainPane.setBackground(Color.white);
+		mainPane.setBackground(Color.white);
 		setLayout(new BorderLayout());
 		add(mainPane, BorderLayout.PAGE_START);
 		
@@ -200,8 +216,5 @@ public class QuizPanel extends JPanel {
 		
 		//add(wordLabel);
 	}
-	
-	/*public static void setCard(WordCard sCard) {
-		card = sCard;
-	}*/
+
 }
