@@ -73,18 +73,17 @@ public class Database {
 		conn.close();
 	}
 	
-	public static void updateStats() throws SQLException {
+	public static void updateStats(WordCard card) throws SQLException {
 		conn = DriverManager.getConnection(dbUrl);
 		stmt = conn.createStatement();
 		
-		//var sql = "UPDATE vocab SET status = ?, forward=? WHERE id = ?";
 		var sql = "UPDATE vocab SET status=?, forward=?, backward=? WHERE id=?";
 		var updateStmt = conn.prepareStatement(sql);
-		int id = 3, status = 2, forward = 1, backward = -1;
-		updateStmt.setInt(1, status);
-		updateStmt.setInt(2, forward);
-		updateStmt.setInt(3, backward);
-		updateStmt.setInt(4, id);
+		//int id = 3, status = 2, forward = 1, backward = -1;
+		updateStmt.setInt(1, card.getStatus());
+		updateStmt.setInt(2, card.getForward());
+		updateStmt.setInt(3, card.getBackward());
+		updateStmt.setInt(4, card.getId());
 		updateStmt.executeUpdate();
 		updateStmt.close();
 		

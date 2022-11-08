@@ -31,11 +31,10 @@ public class Quiz {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		next();
 	}
 	
-	public static void next() {
+	private static void next() {
 		if(mark < 88) {
 			evaluate();
 		}
@@ -59,25 +58,6 @@ public class Quiz {
 		stage = Stage.QUESTION;
 		
 		System.out.println(cIndex);
-		System.out.println(card);
-	}
-	
-	private static void evaluate() {
-		if(card.getStatus() == 0) {
-			if(mark == 0) mark = -1;
-		}
-		if(isForward) {
-			var res = card.getForward() + mark;
-			if(res < -1) res = -1;
-			card.setForward(res);
-		} else { // backward
-			var res = card.getBackward() + mark;
-			if(res < -1) {
-				res = 0;
-				card.setForward(0);
-			} 
-			card.setBackward(res);
-		}
 		System.out.println(card);
 	}
 	
@@ -145,7 +125,6 @@ public class Quiz {
 	}
 	
 	private static void getTrainWord(char c) {
-		//System.out.println("training!");
 		if(c == '\b') {
 			typedWord.deleteCharAt(typedWord.length() - 1);
 		} else {
@@ -169,6 +148,55 @@ public class Quiz {
 		var printOut = new StringBuilder(typedWord);
 		printOut.append("_");
 		QuizPanel.typeIn(printOut.toString());
+	}
+	
+	private static void evaluate() {
+		if(card.getStatus() == 0) {
+			if(mark == 0) mark = -1;
+			if(isForward) {
+				var res = card.getForward() + mark;
+				if(res < -1) res = -1;
+				card.setForward(res);
+			} else { // backward
+				var res = card.getBackward() + mark;
+				if(res < -1) {
+					res = 0;
+					card.setForward(0);
+				} 
+				card.setBackward(res);
+			}
+			if(/*card.getForward() ==*/ card.getBackward() == 2) {
+				card.setStatus(1);
+				card.setForward(0);
+				card.setBackward(0);
+			}
+		} else {
+			int res = 0; // status > 0
+			if(isForward) {
+				res = card.getForward() + mark;
+				if(res < -1) res = -1;
+				card.setForward(res);
+			} else { // backward
+				res = card.getBackward() + mark;
+				card.setBackward(res);
+			}
+			if(res < -1) {
+				card.setStatus(0);
+				card.setForward(0);
+				card.setBackward(0);
+			} 
+			if(/*card.getForward() ==*/ card.getBackward() == 1) {
+				card.setStatus(2);
+				card.setForward(0);
+				card.setBackward(0);
+			}
+		}
+		try {
+			Database.updateStats(card);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println(card);
 	}
 	
 	private static void play() {
