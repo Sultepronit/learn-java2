@@ -93,6 +93,30 @@ public class WordCard {
 		return mp3urls;
 	}
 	
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public int getForward() {
+		return forward;
+	}
+
+	public void setForward(int forward) {
+		this.forward = forward;
+	}
+
+	public int getBackward() {
+		return backward;
+	}
+
+	public void setBackward(int backward) {
+		this.backward = backward;
+	}
+
 	public String getMp3String() {
 		var builder = new StringBuilder();
 		for(int j = 0; j < mp3urls.size(); j++) {

@@ -23,6 +23,7 @@ public class Quiz {
 	private static boolean isEvaluated;
 	private static StringBuilder typedWord = new StringBuilder();
 	private static boolean isCorrect = false;
+	private static int mark = 88;
 	
 	public static void start() {
 		try {
@@ -35,6 +36,9 @@ public class Quiz {
 	}
 	
 	public static void next() {
+		if(mark < 88) {
+			evaluate();
+		}
 		isEvaluated = false;
 		isCorrect = false;
 		typedWord = new StringBuilder();
@@ -58,6 +62,25 @@ public class Quiz {
 		System.out.println(card);
 	}
 	
+	private static void evaluate() {
+		if(card.getStatus() == 0) {
+			if(mark == 0) mark = -1;
+		}
+		if(isForward) {
+			var res = card.getForward() + mark;
+			if(res < -1) res = -1;
+			card.setForward(res);
+		} else { // backward
+			var res = card.getBackward() + mark;
+			if(res < -1) {
+				res = 0;
+				card.setForward(0);
+			} 
+			card.setBackward(res);
+		}
+		System.out.println(card);
+	}
+	
 	public static void react(char command) {
 		System.out.print(command);
 		if(command == '') {
@@ -72,12 +95,15 @@ public class Quiz {
 					isEvaluated = true;
 					if(typedWord.toString().equals(card.getWord())) {
 						isCorrect = true;
-						QuizPanel.mark(1);
+						//QuizPanel.mark(1);
+						mark = 1;
 						typedWord.insert(0, "<html><p style='color:blue'>");
 					} else {
-						QuizPanel.mark(-1);
+						//QuizPanel.mark(-1);
+						mark = -1;
 						typedWord.insert(0, "<html><p style='color:red'>");
 					}
+					QuizPanel.mark(mark);
 					typedWord.append("</p></html>");
 					QuizPanel.typeIn(typedWord.toString());
 				}
@@ -88,13 +114,16 @@ public class Quiz {
 			//System.out.println("evaluate!");
 			if(command == 'g') {
 				isEvaluated = true;
-				QuizPanel.mark(1);
+				mark = 1;
+				QuizPanel.mark(mark);
 			} else if(command == 'b') {
 				isEvaluated = true;
-				QuizPanel.mark(-1);
+				mark = -1;
+				QuizPanel.mark(mark);
 			} else if(command == 'n') {
 				isEvaluated = true;
-				QuizPanel.mark(0);
+				mark = 0;
+				QuizPanel.mark(mark);
 			} else if(isEvaluated && command == '\n') {
 				if(isCorrect) {
 					next();
