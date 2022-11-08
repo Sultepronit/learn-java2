@@ -1,32 +1,35 @@
 package app.gui;
 
 import java.awt.Container;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
 
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
-	private JSplitPane splitPane;
+	private static JSplitPane splitPane;
+	//private QuizPanel quizPanel = new QuizPanel();
+	private static QuizPanel quizPanel = null;
 	
 	public MainFrame(JPanel upperPanel, JPanel lowerPanel) {
 		splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, upperPanel, lowerPanel);
 		//splitPane.setResizeWeight(0.3);
+		quizPanel = new QuizPanel();
 		
-		/*add(splitPane);
-		splitPane.setVisible(true);
+		JTabbedPane tabbedPane = new JTabbedPane();
+		add(tabbedPane);
 		
-		var quizPanel = new JPanel();
-		add(quizPanel);
-		quizPanel.setVisible(false);
-		splitPane.setVisible(true);
-		add(splitPane);*/
-		getContentPane().add(splitPane);
-		getContentPane().removeAll();
-		var quizPanel = new QuizPanel();
-		getContentPane().add(quizPanel);
+		/*tabbedPane.addTab("Tab 1", icon, panel1,
+                "Does nothing");*/
+		tabbedPane.addTab("Cards", splitPane);
+		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
+		
+		tabbedPane.addTab("Quiz", quizPanel);
+		tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 		
 		//setSize(1000, 800);
 		setExtendedState(JFrame.MAXIMIZED_BOTH); 
@@ -34,9 +37,4 @@ public class MainFrame extends JFrame {
 		setVisible(true);
 	}
 
-	/*public static void returnSplitPane() {
-		Container container = new Container();
-		container.removeAll();
-		container.add(splitPane);
-	}*/
 }

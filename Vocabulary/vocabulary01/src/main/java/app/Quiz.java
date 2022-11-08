@@ -7,6 +7,7 @@ import java.util.Random;
 import javax.xml.crypto.Data;
 
 import app.database.Database;
+import app.gui.MainFrame;
 import app.gui.QuizPanel;
 import app.model.WordCard;
 
@@ -70,6 +71,7 @@ public class Quiz {
 		System.out.print(command);
 		if(command == '') {
 			play();
+			//MainFrame.returnSplitPane();
 		} else if(stage == Stage.QUESTION) {
 			if(command == '\n') {
 				QuizPanel.showAnswer();

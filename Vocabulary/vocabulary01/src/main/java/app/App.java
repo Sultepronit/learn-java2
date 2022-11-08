@@ -9,6 +9,7 @@ import javax.swing.SwingUtilities;
 import app.controllers.Controller;
 import app.database.Database;
 import app.database.Dict0;
+import app.gui.MainFrame;
 
 public class App {
 	
@@ -21,6 +22,8 @@ public class App {
 		Quiz.start();
 		
 		SwingUtilities.invokeLater(Controller::new);
+		
+		//MainFrame.returnSplitPane();
 	}
 
 }
