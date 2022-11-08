@@ -1,5 +1,7 @@
 package app.gui;
 
+import java.awt.Container;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
@@ -32,5 +34,9 @@ public class MainFrame extends JFrame {
 		setVisible(true);
 	}
 
-	
+	/*public static void returnSplitPane() {
+		Container container = new Container();
+		container.removeAll();
+		container.add(splitPane);
+	}*/
 }

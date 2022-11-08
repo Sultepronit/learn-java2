@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.xml.crypto.Data;
+
 import app.database.Database;
 import app.gui.QuizPanel;
 import app.model.WordCard;
@@ -14,7 +16,7 @@ enum Stage {
 
 public class Quiz {
 	
-	private static ArrayList<WordCard> cardList = null;
+	private static ArrayList<WordCard> studyList = null;
 	private static WordCard card = null;
 	private static Random random = new Random();
 	private static int cIndex = 0;
@@ -27,38 +29,41 @@ public class Quiz {
 	
 	public static void start() {
 		try {
-			cardList = Database.getCardList();
+			//studyList = Database.getCardList();
+			var list = Database.getCardList();
+			studyList = list;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		next();
 	}
 	
+	private static void end() {
+		System.out.println("finnish!");
+	}
+	
 	private static void next() {
 		if(mark < 88) {
 			evaluate();
 		}
-		isEvaluated = false;
-		isCorrect = false;
-		typedWord = new StringBuilder();
-		cIndex = random.nextInt(cardList.size());
-		card = cardList.get(cIndex);
 		
-		isForward = random.nextBoolean();
-		//isForward = true;
-		/*if(isForward) {
-			//QuizPanel.startForward(card);
-			//QuizPanel.start(card, isForward);
+		if(studyList.size() < 3) {
+			end();
 		} else {
-			QuizPanel.startBackward(card);
+			isEvaluated = false;
+			isCorrect = false;
 			typedWord = new StringBuilder();
-		}*/
-		QuizPanel.start(card, isForward);
-		
-		stage = Stage.QUESTION;
-		
-		System.out.println(cIndex);
-		System.out.println(card);
+			cIndex = random.nextInt(studyList.size());
+			card = studyList.get(cIndex);
+			isForward = random.nextBoolean();
+	
+			QuizPanel.start(card, isForward);		
+			stage = Stage.QUESTION;
+			
+			System.out.println(studyList.size());
+			System.out.println(cIndex);
+			System.out.println(card);
+		}
 	}
 	
 	public static void react(char command) {
@@ -169,6 +174,10 @@ public class Quiz {
 				card.setStatus(1);
 				card.setForward(0);
 				card.setBackward(0);
+			}
+			if(mark > 0) {
+				studyList.remove(cIndex);
+				System.out.println("remove!");
 			}
 		} else {
 			int res = 0; // status > 0
