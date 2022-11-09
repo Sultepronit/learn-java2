@@ -40,7 +40,7 @@ public class Quiz {
 	}
 	
 	private static void end() {
-		System.out.println("finnish!");
+		//System.out.println("finnish!");
 		QuizPanel.end();
 	}
 	
@@ -128,7 +128,7 @@ public class Quiz {
 			//System.out.println("train!");
 			getTrainWord(command);
 		} else { // EXIT
-			System.out.println("exit!");
+			//System.out.println("exit!");
 			if(command == '\n') {
 				next();
 			}
