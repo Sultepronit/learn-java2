@@ -71,6 +71,15 @@ public class QuizPanel extends JPanel {
 		typeIn.setText(typedIn);
 	}
 	
+	public static void end() {
+		statusMark.setBackground(Color.white);
+		transcLabel.setText(" ");
+		exampleLabel.setText(" ");
+		typeIn.setText(" ");
+		wordLabel.setText("THE END!");
+		translLabel.setText(" ");
+	}
+	
 	public QuizPanel() {
 		//statusMark.setOpaque(true);
 		statusMark.setBackground(Color.white);

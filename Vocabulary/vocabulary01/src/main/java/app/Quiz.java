@@ -41,6 +41,7 @@ public class Quiz {
 	
 	private static void end() {
 		System.out.println("finnish!");
+		QuizPanel.end();
 	}
 	
 	private static void next() {
@@ -56,7 +57,10 @@ public class Quiz {
 			typedWord = new StringBuilder();
 			cIndex = random.nextInt(studyList.size());
 			card = studyList.get(cIndex);
-			isForward = random.nextBoolean();
+			//isForward = random.nextBoolean();
+			if(card.getForward() > card.getBackward()) isForward = false;
+			else isForward = true;
+			
 	
 			QuizPanel.start(card, isForward);		
 			stage = Stage.QUESTION;
