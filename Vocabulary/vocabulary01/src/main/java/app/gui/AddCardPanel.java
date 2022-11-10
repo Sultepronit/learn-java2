@@ -11,9 +11,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import app.App;
 import app.PlayMP3;
 import app.database.Database;
 import app.model.WordCard;
@@ -103,6 +105,21 @@ public class AddCardPanel extends JPanel {
 			}
 		});
 		
+		var tableModel = new CardTableModel(App.cardList);
+		var table = new JTable(tableModel);
+		//table.setAutoResizeMode(-1);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table.getColumnModel().getColumn(0).setPreferredWidth(40);
+		table.getColumnModel().getColumn(1).setPreferredWidth(40);
+		table.getColumnModel().getColumn(2).setPreferredWidth(0);
+		table.getColumnModel().getColumn(3).setPreferredWidth(0);
+		table.getColumnModel().getColumn(4).setPreferredWidth(200);
+		table.getColumnModel().getColumn(5).setPreferredWidth(200);
+		table.getColumnModel().getColumn(6).setPreferredWidth(400);
+		table.getColumnModel().getColumn(7).setPreferredWidth(400);
+		//table.getColumnModel().getColumn(0).setMinWidth(10);
+		var tableScrollPane = new JScrollPane(table);
+		
 		setLayout(new GridBagLayout());
 		var gc = new GridBagConstraints();
 		gc.gridwidth = 1;
@@ -140,6 +157,11 @@ public class AddCardPanel extends JPanel {
 		gc.gridy++;
 		gc.anchor = GridBagConstraints.LINE_END;
 		add(saveButton, gc);
+		
+		gc.gridy++;
+		//gc.gridx = 0;
+		gc.fill = GridBagConstraints.HORIZONTAL;
+		add(tableScrollPane, gc);
 	}
 	
 	private static void playList() {

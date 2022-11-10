@@ -29,13 +29,15 @@ public class Quiz {
 	private static int mark = 88;
 	
 	public static void start() {
-		try {
+		/*try {
 			//studyList = Database.getCardList();
 			var list = Database.getCardList();
 			studyList = list;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		}*/
+		studyList = (ArrayList<WordCard>) App.cardList;
+		
 		next();
 	}
 	

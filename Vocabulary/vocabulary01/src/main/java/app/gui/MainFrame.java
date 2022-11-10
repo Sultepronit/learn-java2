@@ -25,7 +25,8 @@ public class MainFrame extends JFrame {
 		
 		/*tabbedPane.addTab("Tab 1", icon, panel1,
                 "Does nothing");*/
-		tabbedPane.addTab("Cards", splitPane);
+		//tabbedPane.addTab("Cards", splitPane);
+		tabbedPane.addTab("Cards", upperPanel);
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 		
 		tabbedPane.addTab("Quiz", quizPanel);
