@@ -48,6 +48,7 @@ public class AddCardPanel extends JPanel {
 		//scrollPane.setSize(100, 100);
 		//scrollPane.setSize(new Dimension(150, 410));
 		scrollPane.setPreferredSize(new Dimension(950, 110));
+		//scrollPane.setMinimumSize(new Dimension(950, 110));
 		
 		var playButton = new JButton("Play");
 		playButton.addActionListener(arg -> {
@@ -122,24 +123,25 @@ public class AddCardPanel extends JPanel {
 		
 		setLayout(new GridBagLayout());
 		var gc = new GridBagConstraints();
-		gc.gridwidth = 1;
+		gc.gridwidth = 2;
 		//gc.weighty = 0.1;
 		gc.gridx = 0;
 		gc.gridy = 0;
 		gc.anchor = GridBagConstraints.LINE_START;
+		//gc.anchor = GridBagConstraints.PAGE_START;
 		add(wordField, gc);
 		
-		gc.gridx++;
+		gc.gridwidth = 1;
+		gc.gridx = 2;
 		add(transcField, gc);
 		
-		gc.gridx++;
-		add(playButton, gc);
+		/*gc.gridx++;
+		add(playButton, gc);*/
 		
-		gc.gridx++;
-		//add(addButton, gc);
-		add(delButton, gc);
+		/*gc.gridx++;
+		add(delButton, gc);*/
 		
-		gc.gridwidth = 4;
+		gc.gridwidth = 3;
 		gc.gridx = 0;
 		gc.gridy++;
 		//gc.anchor = GridBagConstraints.BOTH;
@@ -149,17 +151,26 @@ public class AddCardPanel extends JPanel {
 		gc.gridy++;
 		add(exampleField, gc);
 		
+		gc.fill = GridBagConstraints.HORIZONTAL;
 		gc.gridy++;
-		//add(soundUrlField, gc);
-		//add(soundUrlLabel, gc);
 		add(scrollPane, gc);
 		
+		gc.gridwidth = 1;
 		gc.gridy++;
+		gc.gridx = 0;
+		add(playButton, gc);
+		
+		gc.gridx++;
+		add(delButton, gc);
+		
+		//gc.gridy++;
+		gc.gridx++;
 		gc.anchor = GridBagConstraints.LINE_END;
 		add(saveButton, gc);
 		
+		gc.gridwidth = 3;
 		gc.gridy++;
-		//gc.gridx = 0;
+		gc.gridx = 0;
 		gc.fill = GridBagConstraints.HORIZONTAL;
 		add(tableScrollPane, gc);
 	}
