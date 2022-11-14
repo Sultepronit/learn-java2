@@ -66,16 +66,18 @@ public class AddCardPanel extends JPanel {
 				try {
 					urls = Database.getUrlsList(word);
 				} catch (ClassNotFoundException | SQLException e) {
+					System.out.println("Here1");
 					e.printStackTrace();
 				}
+				System.out.println("Here2");
 				var array = urls.split("\\+++");
 				//urlList = (ArrayList<String>) Arrays.asList(array);
 				urlList = new ArrayList<>();
 				for(var url: array) {
 					urlList.add(url);
 				}
-				//urlList.remove(0);
 				listIndex = 0;
+				System.out.println("Here3");
 				playList();
 				//PlayMP3.play(array[0]);
 			}

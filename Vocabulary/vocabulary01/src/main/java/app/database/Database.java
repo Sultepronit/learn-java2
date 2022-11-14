@@ -25,7 +25,12 @@ public class Database {
 		
 		var sql = "select * from dic where word='" + word + "'";
 		var rs = stmt.executeQuery(sql);
-		String urls = rs.getString("urls");
+		//System.out.println(rs);
+		String urls = "---";
+		//String urls = rs.getString("urls");
+		while(rs.next()) {
+			urls = rs.getString("urls");
+		}
 		System.out.println(urls);
 		
 		stmt.close();

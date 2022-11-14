@@ -17,8 +17,12 @@ enum Stage {
 
 public class Quiz {
 	
-	private static ArrayList<WordCard> studyList = null;
-	private static WordCard card = null;
+	private static ArrayList<WordCard> studyList;
+	private static ArrayList<WordCard> repeatList;
+	//private static int toRepeat;
+	private static int lastToRepeat;
+	private static WordCard card;
+	private static WordCard cardBefore;
 	private static Random random = new Random();
 	private static int cIndex = 0;
 	private static boolean isForward = true;
@@ -36,8 +40,20 @@ public class Quiz {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}*/
-		studyList = (ArrayList<WordCard>) App.cardList;
-		
+		studyList = new ArrayList<>();
+		repeatList = new ArrayList<>();
+		//studyList = (ArrayList<WordCard>) App.cardList;
+		for(var card: App.cardList) {
+			if(card.getStatus() == 0) {
+				studyList.add(card);
+				//System.out.println(card);
+			} else if(card.getStatus() == 1) {
+				repeatList.add(card);
+				System.out.println(card);
+			}
+		}
+		//toRepeat = lastToRepeat = 1;
+		lastToRepeat = 1;
 		next();
 	}
 	
@@ -51,14 +67,26 @@ public class Quiz {
 			evaluate();
 		}
 		
-		if(studyList.size() < 3) {
+		if(studyList.size() + lastToRepeat < 3) {
 			end();
 		} else {
 			isEvaluated = false;
 			isCorrect = false;
 			typedWord = new StringBuilder();
-			cIndex = random.nextInt(studyList.size());
-			card = studyList.get(cIndex);
+			cardBefore = card;
+			while(cardBefore == card) {
+				int order = random.nextInt(lastToRepeat + studyList.size() - 2);
+				if(order > lastToRepeat) {
+					cIndex = random.nextInt(studyList.size());
+					card = studyList.get(cIndex);
+				} else {
+					cIndex = random.nextInt(repeatList.size());
+					card = repeatList.get(cIndex);
+					lastToRepeat--;
+					repeatList.remove(cIndex);
+				}
+				
+			}
 			//isForward = random.nextBoolean();
 			if(card.getForward() > card.getBackward()) isForward = false;
 			else isForward = true;

@@ -11,6 +11,7 @@ public class PlayMP3 {
 	
 	//public static void play(String[] urlString) {
 	public static void play(String urlString) {
+		if(urlString.equals("---")) return;
         try {
 
             mp3Player = new MP3Player();
