@@ -130,6 +130,7 @@ public class AddCardPanel extends JPanel {
 		gc.gridx = 0;
 		gc.gridy = 0;
 		gc.anchor = GridBagConstraints.LINE_START;
+		gc.fill = GridBagConstraints.HORIZONTAL;
 		//gc.anchor = GridBagConstraints.PAGE_START;
 		add(wordField, gc);
 		
@@ -142,21 +143,20 @@ public class AddCardPanel extends JPanel {
 		
 		/*gc.gridx++;
 		add(delButton, gc);*/
-		
+		//gc.fill = GridBagConstraints.HORIZONTAL;
 		gc.gridwidth = 3;
 		gc.gridx = 0;
 		gc.gridy++;
-		//gc.anchor = GridBagConstraints.BOTH;
-		//gc.anchor = GridBagConstraints.HORIZONTAL;
 		add(translField, gc);
 		
 		gc.gridy++;
 		add(exampleField, gc);
 		
-		gc.fill = GridBagConstraints.HORIZONTAL;
+		//gc.fill = GridBagConstraints.HORIZONTAL;
 		gc.gridy++;
 		add(scrollPane, gc);
 		
+		gc.fill = GridBagConstraints.VERTICAL;
 		gc.gridwidth = 1;
 		gc.gridy++;
 		gc.gridx = 0;
