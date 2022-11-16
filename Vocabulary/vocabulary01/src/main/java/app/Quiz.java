@@ -81,7 +81,7 @@ public class Quiz {
 			typedWord = new StringBuilder();
 			cardBefore = card;
 			while(cardBefore == card) {
-				int order = random.nextInt(lastToRepeat + studyList.size() - 2);
+				int order = random.nextInt(lastToRepeat + studyList.size() + 1 - 2);
 				if(order > lastToRepeat) {
 					cIndex = random.nextInt(studyList.size());
 					card = studyList.get(cIndex);
