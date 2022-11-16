@@ -18,19 +18,22 @@ public class Controller {
 	private static final List<WordCard> cardList = new ArrayList<>(); 
 	
 	public Controller() {
+		new Quiz(cardList);
 		refresh();
 		var addCard = new AddCardPanel(cardList);
 		var quizPanel = new QuizPanel();
 		mainFrame = new MainFrame(addCard, quizPanel);
-		new Quiz(cardList);
-		Quiz.start();
+		//new Quiz(cardList);
+		//Quiz.start();
 	}
 	
-	private void refresh() {
-		cardList.clear();
+	public static void refresh() {
+		
 		try {
+			cardList.clear();
 			//cardList = Database.getCardList();
 			cardList.addAll(Database.getCardList());
+			Quiz.start();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

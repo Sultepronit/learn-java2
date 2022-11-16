@@ -15,9 +15,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.table.TableModel;
 
 import app.App;
 import app.PlayMP3;
+import app.controllers.Controller;
 import app.database.Database;
 import app.model.WordCard;
 
@@ -27,6 +29,7 @@ public class AddCardPanel extends JPanel {
 	//private static List<WordCard> cardList;
 	
 	private static JLabel soundUrlLabel = new JLabel();
+	private static CardTableModel tableModel;// = new CardTableModel(cardList);
 	
 	private static String currentWord = null; 
 	private static ArrayList<String> urlList = null;
@@ -113,12 +116,16 @@ public class AddCardPanel extends JPanel {
 			
 			try {
 				Database.saveCard(card);
+				Controller.refresh();
+				tableModel.fireTableDataChanged();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		});
 		
-		var tableModel = new CardTableModel(cardList);
+		//var tableModel = new CardTableModel(cardList);
+		//TableModel tableModel = new CardTableModel(cardList);
+		tableModel = new CardTableModel(cardList);
 		var table = new JTable(tableModel);
 		//table.setAutoResizeMode(-1);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);

@@ -52,10 +52,10 @@ public class Quiz {
 		for(var card: cardList) {
 			if(card.getStatus() == 0) {
 				studyList.add(card);
-				//System.out.println(card);
+				System.out.println(card);
 			} else if(card.getStatus() == 1) {
 				repeatList.add(card);
-				System.out.println(card);
+				//System.out.println(card);
 			}
 		}
 		//toRepeat = lastToRepeat = 1;
