@@ -6,6 +6,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -23,13 +24,17 @@ import app.model.WordCard;
 public class AddCardPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
+	//private static List<WordCard> cardList;
+	
 	private static JLabel soundUrlLabel = new JLabel();
 	
 	private static String currentWord = null; 
 	private static ArrayList<String> urlList = null;
 	private static int listIndex = 0;
 
-	public AddCardPanel() {
+	public AddCardPanel(List<WordCard> cardList) {
+		//cardList = cl;
+		
 		var wordField = new JTextField(20);
 		wordField.setFont(new Font("Arial", Font.PLAIN, 30));
 		
@@ -113,7 +118,7 @@ public class AddCardPanel extends JPanel {
 			}
 		});
 		
-		var tableModel = new CardTableModel(App.cardList);
+		var tableModel = new CardTableModel(cardList);
 		var table = new JTable(tableModel);
 		//table.setAutoResizeMode(-1);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);

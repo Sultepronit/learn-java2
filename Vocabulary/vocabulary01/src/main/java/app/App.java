@@ -20,7 +20,7 @@ public class App {
 			e.printStackTrace();
 		}*/
 		
-		Quiz.start();
+		//Quiz.start();
 		
 		SwingUtilities.invokeLater(Controller::new);
 		

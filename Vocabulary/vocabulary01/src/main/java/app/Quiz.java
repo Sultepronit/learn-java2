@@ -2,6 +2,7 @@ package app;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.xml.crypto.Data;
@@ -17,6 +18,7 @@ enum Stage {
 
 public class Quiz {
 	
+	private static List<WordCard> cardList; 
 	private static ArrayList<WordCard> studyList;
 	private static ArrayList<WordCard> repeatList;
 	//private static int toRepeat;
@@ -32,6 +34,10 @@ public class Quiz {
 	private static boolean isCorrect = false;
 	private static int mark = 88;
 	
+	public Quiz(List<WordCard> cardList) {
+		this.cardList = cardList;
+	}
+
 	public static void start() {
 		/*try {
 			//studyList = Database.getCardList();
@@ -43,7 +49,7 @@ public class Quiz {
 		studyList = new ArrayList<>();
 		repeatList = new ArrayList<>();
 		//studyList = (ArrayList<WordCard>) App.cardList;
-		for(var card: App.cardList) {
+		for(var card: cardList) {
 			if(card.getStatus() == 0) {
 				studyList.add(card);
 				//System.out.println(card);

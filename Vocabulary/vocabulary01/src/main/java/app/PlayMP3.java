@@ -1,5 +1,4 @@
 package app;
-import java.io.File;
 import java.net.URL;
 
 import jaco.mp3.player.MP3Player;
