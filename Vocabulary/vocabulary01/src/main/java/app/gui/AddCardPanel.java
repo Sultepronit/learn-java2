@@ -101,6 +101,11 @@ public class AddCardPanel extends JPanel {
 			String example = exampleField.getText();
 			var card = new WordCard(currentWord, transc, transl, example, urlList);
 			System.out.println(card);
+			wordField.setText("");
+			transcField.setText("");
+			translField.setText("");
+			exampleField.setText("");
+			
 			try {
 				Database.saveCard(card);
 			} catch (SQLException e) {
