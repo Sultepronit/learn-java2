@@ -185,12 +185,14 @@ public class AddCardPanel extends JPanel {
 		//gc.gridy++;
 		gc.gridx++;
 		gc.anchor = GridBagConstraints.LINE_END;
+		gc.weightx = 0.1;
 		add(saveButton, gc);
 		
 		gc.gridwidth = 3;
 		gc.gridy++;
 		gc.gridx = 0;
 		gc.fill = GridBagConstraints.HORIZONTAL;
+		gc.weightx = 2;
 		add(tableScrollPane, gc);
 	}
 	

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,10 +11,16 @@ public class App {
 		// error!!!
 		//stringList.add("four");
 		
-		
 		String[] array = {"four", "five", "six"};
 		var stringList2 = List.of(array);
 		stringList2.forEach(System.out::println);
+		
+		List<String> stringList3 = new ArrayList<>() {{
+			add("seven");
+			add("eight");
+			add("nine");
+		}};
+		System.out.println(stringList3);
 		
 		var numberMap = Map.of("one", 1, "two", 2, "tree", 3);
 		numberMap.forEach((k,v) -> System.out.println(k + ": " + v));
@@ -105,13 +112,31 @@ public class App {
 		String s3 = String.format("%8s", s2).replace(' ', '0');
 		System.out.println(s3);
 	}
+	
+	static void args(String... args) {
+		System.out.println(args[1]);
+		//System.out.println(args0); //???
+		
+		System.out.println(args.getClass());
+		int[] iArray = {1, 2, 3};
+		System.out.println(iArray.getClass());
+		var string = "string";
+		System.out.println(string.getClass());
+		var num = 55;
+		//System.out.println(num.getClass()); // error!
+		Integer[] IArray = {1, 2, 3};
+		System.out.println(IArray.getClass());
+		List<Integer> IList = List.of(IArray);
+		System.out.println(IList.getClass());
+	}
 
 	public static void main(String[] args) {
-		//listMapDeclaration();
+		listMapDeclaration();
 		//floatEquals();
 		//bits();
-		bits2();
-		bits3();
+		/*bits2();
+		bits3();*/
+		args("one", "two", "three");
 	}
 
 }
