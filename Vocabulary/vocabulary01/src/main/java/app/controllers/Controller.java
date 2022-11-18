@@ -19,12 +19,13 @@ public class Controller {
 	
 	public Controller() {
 		new Quiz(cardList);
-		refresh();
+		//refresh();
 		var addCard = new AddCardPanel(cardList);
 		var quizPanel = new QuizPanel();
 		mainFrame = new MainFrame(addCard, quizPanel);
 		//new Quiz(cardList);
 		//Quiz.start();
+		refresh();
 	}
 	
 	public static void refresh() {

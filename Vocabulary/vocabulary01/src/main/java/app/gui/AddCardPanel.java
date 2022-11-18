@@ -139,6 +139,7 @@ public class AddCardPanel extends JPanel {
 		table.getColumnModel().getColumn(7).setPreferredWidth(400);
 		//table.getColumnModel().getColumn(0).setMinWidth(10);
 		var tableScrollPane = new JScrollPane(table);
+		//tableScrollPane.setPreferredSize(new Dimension(950, 910));
 		
 		setLayout(new GridBagLayout());
 		var gc = new GridBagConstraints();

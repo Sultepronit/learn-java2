@@ -111,7 +111,8 @@ public class Quiz {
 		System.out.print(command);
 		if(command == '') {
 			play();
-			//MainFrame.returnSplitPane();
+		} else if (command == '') {
+			start();
 		} else if(stage == Stage.QUESTION) {
 			if(command == '\n') {
 				QuizPanel.showAnswer();
@@ -127,6 +128,9 @@ public class Quiz {
 						typedWord.insert(0, "<html><p style='color:blue'>");
 					} else {
 						//QuizPanel.mark(-1);
+						if(typedWord.toString().equals("")) {
+							typedWord.append("_");
+						}
 						mark = -1;
 						typedWord.insert(0, "<html><p style='color:red'>");
 					}
