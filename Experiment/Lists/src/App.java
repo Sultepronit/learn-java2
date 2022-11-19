@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class App {
 	
@@ -129,14 +130,54 @@ public class App {
 		List<Integer> IList = List.of(IArray);
 		System.out.println(IList.getClass());
 	}
+	
+	static void switchCase() {
+		var random = new Random();
+		int i = random.nextInt(0, 10);
+		System.out.println(i);
+		switch(i) {
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+				System.out.println("less than 4");
+				break;
+			case 4:
+			case 5:
+			case 6:
+				System.out.println("less than 7");
+				break;
+			default:
+				System.out.println("7 or more");
+		}
+		
+		switch(i) {
+		case 0:
+			System.out.println("0");
+		case 1:
+			System.out.println("1 or less");
+		case 2:
+			System.out.println("2 or less");
+		case 3:
+			System.out.println("3 or less");
+		case 4:
+			System.out.println("4 or less");
+		case 5:
+			System.out.println("5 or less");
+			break;
+		default:
+			System.out.println("more than 5");
+	}
+	}
 
 	public static void main(String[] args) {
-		listMapDeclaration();
+		//listMapDeclaration();
 		//floatEquals();
 		//bits();
 		/*bits2();
 		bits3();*/
-		args("one", "two", "three");
+		//args("one", "two", "three");
+		switchCase();
 	}
 
 }
