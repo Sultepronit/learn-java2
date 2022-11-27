@@ -7,24 +7,26 @@ import jaco.mp3.player.MP3Player;
 
 public class PlayMP3 {
 	public static MP3Player mp3Player;
-	
-	//public static void play(String[] urlString) {
+
 	public static void play(String urlString) {
 		if(urlString.equals("---")) return;
         try {
 
             mp3Player = new MP3Player();
-            /*for(int i = 0; i < urlString.length; i++) {
-            	var url = new URL(urlString[i]);
-            	mp3Player.addToPlayList(url);
-            }*/
+            System.out.println("Before");
             var url = new URL(urlString);
+            /*url.getContent();
+            System.out.println(url.getContent());*/
+            System.out.println("After");
             mp3Player.addToPlayList(url);
+            System.out.println("After2");
             
             mp3Player.play();
+            System.out.println("After3");
             
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            //System.err.println(e.getMessage());
+        	System.out.println("Cannot play a sound...");
         }
     }
 	
