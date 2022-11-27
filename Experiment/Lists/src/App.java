@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -169,6 +170,35 @@ public class App {
 			System.out.println("more than 5");
 	}
 	}
+	
+	static void littleStream() {
+		int[] array = {1, 2, 3, 4, 5};
+		Arrays.stream(array).forEach(System.out::println);
+		
+		// cannot convert from List<int[]> to List<Integer>!!!
+		//List<Integer> list = List.of(array);
+		
+		var list = List.of(6, 7, 8, 9, 10);
+		System.out.println(list);
+		list.stream().forEach(i -> 
+			System.out.println(Thread.currentThread().getName() + ": " + i)
+		);
+		
+		var bigList = new ArrayList<Integer>();
+		for(int i = 0; i < 10001; i += 1) {
+			bigList.add(i);
+		}
+		System.out.println(bigList);
+		bigList.parallelStream().forEach(i -> 
+			System.out.println(Thread.currentThread().getName() + ": " + i)
+		);
+		
+		var bigArray = bigList.toArray();
+		// we can specify the start & the end indexes
+		Arrays.stream(bigArray, 100, 1000).parallel().forEach(
+			i -> System.out.println(Thread.currentThread().getName() + ": " + i)
+		);
+	}
 
 	public static void main(String[] args) {
 		//listMapDeclaration();
@@ -178,6 +208,7 @@ public class App {
 		bits3();*/
 		//args("one", "two", "three");
 		switchCase();
+		littleStream();
 	}
 
 }
