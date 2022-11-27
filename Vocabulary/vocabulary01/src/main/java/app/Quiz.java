@@ -39,27 +39,22 @@ public class Quiz {
 	}
 
 	public static void start() {
-		/*try {
-			//studyList = Database.getCardList();
-			var list = Database.getCardList();
-			studyList = list;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}*/
 		studyList = new ArrayList<>();
 		repeatList = new ArrayList<>();
 		//studyList = (ArrayList<WordCard>) App.cardList;
 		for(var card: cardList) {
 			if(card.getStatus() == 0) {
 				studyList.add(card);
-				System.out.println(card);
+				//System.out.println(card);
 			} else if(card.getStatus() == 1) {
 				repeatList.add(card);
 				//System.out.println(card);
 			}
 		}
-		//toRepeat = lastToRepeat = 1;
-		lastToRepeat = 1;
+		System.out.println("Study list: " + studyList.size());
+		System.out.println("Repeat list: " + repeatList.size());
+		lastToRepeat = repeatList.size() / 10;
+		System.out.println("To repeat: " + lastToRepeat);
 		next();
 	}
 	
@@ -81,7 +76,8 @@ public class Quiz {
 			typedWord = new StringBuilder();
 			cardBefore = card;
 			while(cardBefore == card) {
-				int order = random.nextInt(lastToRepeat + studyList.size() - 2) + 1;
+				//System.out.println("loook" + random.nextInt(1,1));
+				int order = random.nextInt(1, (lastToRepeat + studyList.size() - 1));
 				if(order > lastToRepeat) {
 					cIndex = random.nextInt(studyList.size());
 					card = studyList.get(cIndex);
@@ -165,10 +161,8 @@ public class Quiz {
 				}
 			}
 		} else if(stage == Stage.TRAINING) {
-			//System.out.println("train!");
 			getTrainWord(command);
 		} else { // EXIT
-			//System.out.println("exit!");
 			if(command == '\n') {
 				next();
 			}
