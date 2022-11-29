@@ -2,6 +2,7 @@ package app;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -16,11 +17,17 @@ enum Stage {
 	QUESTION, EVALUATION, TRAINING, EXIT
 }
 
+enum CardLearnStage {
+	STUDY, CONTROL, REPEAT
+}
+
 public class Quiz {
 	
 	private static List<WordCard> cardList; 
 	private static ArrayList<WordCard> studyList;
+	private static ArrayList<WordCard> controlList;
 	private static ArrayList<WordCard> repeatList;
+	private static ArrayList<CardLearnStage> sessionCardList;
 	//private static int toRepeat;
 	private static int lastToRepeat;
 	private static WordCard card;
@@ -33,28 +40,44 @@ public class Quiz {
 	private static StringBuilder typedWord = new StringBuilder();
 	private static boolean isCorrect = false;
 	private static int mark = 88;
+	private static int maxRepeatable;
 	
 	public Quiz(List<WordCard> cardList) {
 		this.cardList = cardList;
+		maxRepeatable = 10;
 	}
 
 	public static void start() {
 		studyList = new ArrayList<>();
+		controlList = new ArrayList<>();
 		repeatList = new ArrayList<>();
+		sessionCardList = new ArrayList<>();
 		//studyList = (ArrayList<WordCard>) App.cardList;
 		for(var card: cardList) {
 			if(card.getStatus() == 0) {
 				studyList.add(card);
-				//System.out.println(card);
 			} else if(card.getStatus() == 1) {
+				controlList.add(card);
+			} else if(card.getStatus() <= maxRepeatable) {
 				repeatList.add(card);
-				//System.out.println(card);
 			}
 		}
 		System.out.println("Study list: " + studyList.size());
+		System.out.println("Repeat0 list: " + controlList.size());
 		System.out.println("Repeat list: " + repeatList.size());
-		lastToRepeat = repeatList.size() / 10;
+		lastToRepeat = controlList.size() / 10;
 		System.out.println("To repeat: " + lastToRepeat);
+		
+		for(int i = 0; i < studyList.size() - 2; i++) {
+			sessionCardList.add(CardLearnStage.STUDY);
+		}
+		for(int i = 0; i < lastToRepeat; i++) {
+			sessionCardList.add(CardLearnStage.CONTROL);
+		}
+		//sessionCardList.
+		Collections.shuffle(sessionCardList);
+		System.out.println(sessionCardList);
+		
 		next();
 	}
 	
@@ -76,24 +99,24 @@ public class Quiz {
 			typedWord = new StringBuilder();
 			cardBefore = card;
 			while(cardBefore == card) {
-				//System.out.println("loook" + random.nextInt(1,1));
 				int order = random.nextInt(1, (lastToRepeat + studyList.size() - 1));
+				int typeIndex = random.nextInt(sessionCardList.size());
 				if(order > lastToRepeat) {
 					cIndex = random.nextInt(studyList.size());
 					card = studyList.get(cIndex);
 				} else {
-					cIndex = random.nextInt(repeatList.size());
-					card = repeatList.get(cIndex);
+					cIndex = random.nextInt(controlList.size());
+					card = controlList.get(cIndex);
 					lastToRepeat--;
-					repeatList.remove(cIndex);
+					controlList.remove(cIndex);
+					sessionCardList.remove(typeIndex);
 				}
 				
 			}
-			//isForward = random.nextBoolean();
+
 			if(card.getForward() > card.getBackward()) isForward = false;
 			else isForward = true;
 			
-	
 			QuizPanel.start(card, isForward);		
 			stage = Stage.QUESTION;
 			
@@ -119,11 +142,9 @@ public class Quiz {
 					isEvaluated = true;
 					if(typedWord.toString().equals(card.getWord())) {
 						isCorrect = true;
-						//QuizPanel.mark(1);
 						mark = 1;
 						typedWord.insert(0, "<html><p style='color:blue'>");
 					} else {
-						//QuizPanel.mark(-1);
 						if(typedWord.toString().equals("")) {
 							typedWord.append("_");
 						}
@@ -217,7 +238,7 @@ public class Quiz {
 			}
 			if(mark > 0) {
 				studyList.remove(cIndex);
-				System.out.println("remove!");
+				//System.out.println("remove!");
 			}
 		} else {
 			int res = 0; // status > 0
