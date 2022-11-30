@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.table.TableModel;
 
-import app.App;
 import app.PlayMP3;
 import app.controllers.Controller;
 import app.database.Database;
@@ -123,11 +123,26 @@ public class AddCardPanel extends JPanel {
 			}
 		});
 		
-		//var tableModel = new CardTableModel(cardList);
-		//TableModel tableModel = new CardTableModel(cardList);
 		tableModel = new CardTableModel(cardList);
 		var table = new JTable(tableModel);
-		//table.setAutoResizeMode(-1);
+		
+		table.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent me) {
+				//System.out.println(me);
+				if(me.getClickCount() == 2) {
+					JTable target = (JTable)me.getSource();
+					int row = target.getSelectedRow();
+					var card = cardList.get(row);
+					System.out.println(row);
+					System.out.println(card);
+					wordField.setText(card.getWord());
+					transcField.setText(card.getTransc());
+					translField.setText(card.getTransl());
+					exampleField.setText(card.getExample());
+				}
+			}
+		});
+		
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		table.getColumnModel().getColumn(0).setPreferredWidth(40);
 		table.getColumnModel().getColumn(1).setPreferredWidth(40);
