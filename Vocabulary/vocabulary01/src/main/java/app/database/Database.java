@@ -40,12 +40,12 @@ public class Database {
 	}
 	
 	public static void saveCard(WordCard card) throws SQLException {
-		/*Connection conn;
-		Statement stmt;*/
 		conn = DriverManager.getConnection(dbUrl);
 		System.out.println(conn);
 		stmt = conn.createStatement();
 		String sql = null;
+		
+		System.out.println("save card: "  + card);
 		
 		/*sql = "DROP TABLE vocab";
 		stmt.execute(sql);
@@ -55,7 +55,7 @@ public class Database {
 		var cr3 = "status INTEGER, forward INTEGER, backward INTEGER)";
 		stmt.execute(cr1 + cr2 + cr3);*/
 		
-		sql = "INSERT INTO vocab (word, transc, transl, example, mp3urls, status, forward, backward) values(?,?,?,?,?, 0, 0, 0)";
+		/*sql = "INSERT INTO vocab (word, transc, transl, example, mp3urls, status, forward, backward) values(?,?,?,?,?, 0, 0, 0)";
 		var insertStmt = conn.prepareStatement(sql);
 		insertStmt.setString(1, card.getWord());
 		insertStmt.setString(2, card.getTransc());
@@ -63,16 +63,16 @@ public class Database {
 		insertStmt.setString(4, card.getExample());
 		insertStmt.setString(5, card.getMp3String());
 		insertStmt.executeUpdate();
-		insertStmt.close();
+		insertStmt.close();*/
 		
-		sql = "SELECT id, word, transl FROM vocab";
+		/*sql = "SELECT id, word, transl FROM vocab";
 		var rs = stmt.executeQuery(sql);
 		while(rs.next()) {
 			int id = rs.getInt("id");
 			String word = rs.getString("word");
 			String transl = rs.getString("transl");
 			System.out.println(id + ": " + word + ": " + transl);
-		}
+		}*/
 		System.out.println("Done!");
 		stmt.close();
 		conn.close();
@@ -97,6 +97,22 @@ public class Database {
 		conn.close();
 	}
 	
+	public static void editCard(WordCard card) throws SQLException {
+		conn = DriverManager.getConnection(dbUrl);
+		stmt = conn.createStatement();
+		
+		var sql = "UPDATE vocab SET word=? WHERE id=?";
+		var updateStmt = conn.prepareStatement(sql);
+		updateStmt.setString(1, card.getWord());
+		updateStmt.setInt(2, card.getId());
+		updateStmt.executeUpdate();
+		updateStmt.close();
+		
+		System.out.println("edited! " + card);
+		stmt.close();
+		conn.close();
+	}
+	
 	public static ArrayList<WordCard> getCardList() throws SQLException {
 		ArrayList<WordCard> list = new ArrayList<>();
 		
@@ -117,7 +133,7 @@ public class Database {
 			int backward = rs.getInt("backward");
 			//System.out.println(id + ": " + word + ": " + transl);
 			var card = new WordCard(id, word, transc, transl, example, mp3urls, status, forward, backward);
-			System.out.println(card);
+			//System.out.println(card);
 			list.add(card);
 		}
 		//System.out.println(list);
@@ -126,4 +142,5 @@ public class Database {
 		conn.close();
 		return list;
 	}
+
 }

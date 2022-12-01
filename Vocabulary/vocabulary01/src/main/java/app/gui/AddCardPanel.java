@@ -34,9 +34,10 @@ public class AddCardPanel extends JPanel {
 	private static String currentWord = null; 
 	private static ArrayList<String> urlList = null;
 	private static int listIndex = 0;
+	private static int editedCardId;
 
 	public AddCardPanel(List<WordCard> cardList) {
-		//cardList = cl;
+		editedCardId = 0;
 		
 		var wordField = new JTextField(20);
 		wordField.setFont(new Font("Arial", Font.PLAIN, 30));
@@ -107,7 +108,8 @@ public class AddCardPanel extends JPanel {
 			String transc = transcField.getText();
 			String transl = translField.getText();
 			String example = exampleField.getText();
-			var card = new WordCard(currentWord, transc, transl, example, urlList);
+			//var card = new WordCard(currentWord, transc, transl, example, urlList);
+			var card = new WordCard(editedCardId, currentWord, transc, transl, example, urlList);
 			System.out.println(card);
 			wordField.setText("");
 			transcField.setText("");
@@ -115,9 +117,11 @@ public class AddCardPanel extends JPanel {
 			exampleField.setText("");
 			
 			try {
-				Database.saveCard(card);
+				if(editedCardId == 0) Database.saveCard(card);
+				else Database.editCard(card);
 				Controller.refresh();
 				tableModel.fireTableDataChanged();
+				editedCardId = 0;
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -133,12 +137,14 @@ public class AddCardPanel extends JPanel {
 					JTable target = (JTable)me.getSource();
 					int row = target.getSelectedRow();
 					var card = cardList.get(row);
-					System.out.println(row);
-					System.out.println(card);
+					/*System.out.println(row);
+					System.out.println(card);*/
 					wordField.setText(card.getWord());
 					transcField.setText(card.getTransc());
 					translField.setText(card.getTransl());
 					exampleField.setText(card.getExample());
+					//System.out.println(card.getId());
+					editedCardId = card.getId();
 				}
 			}
 		});

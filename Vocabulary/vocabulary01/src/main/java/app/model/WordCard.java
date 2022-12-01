@@ -13,8 +13,9 @@ public class WordCard {
 	private int forward;
 	private int backward;
 	
-	public WordCard(String word, String transc, String transl, String example, ArrayList<String> mp3urls) {
-		this.id = 0;
+	//public WordCard(String word, String transc, String transl, String example, ArrayList<String> mp3urls) {
+	public WordCard(int id, String word, String transc, String transl, String example, ArrayList<String> mp3urls) {
+		this.id = id;
 		this.word = word;
 		this.transc = transc;
 		this.transl = transl;

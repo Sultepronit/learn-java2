@@ -3,6 +3,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Stream;
 
 public class App {
 	
@@ -199,6 +200,11 @@ public class App {
 			i -> System.out.println(Thread.currentThread().getName() + ": " + i)
 		);
 	}
+	
+	static void streamCreatig() {
+		var emptyStream = Stream.empty();
+		System.out.println(emptyStream);
+	}
 
 	public static void main(String[] args) {
 		//listMapDeclaration();
@@ -207,8 +213,9 @@ public class App {
 		/*bits2();
 		bits3();*/
 		//args("one", "two", "three");
-		switchCase();
-		littleStream();
+		/*switchCase();
+		littleStream();*/
+		streamCreatig();
 	}
 
 }
