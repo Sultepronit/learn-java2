@@ -231,7 +231,7 @@ public class Quiz {
 				} 
 				card.setBackward(res);
 			}
-			if(/*card.getForward() ==*/ card.getBackward() == 2) {
+			if(card.getBackward() == 2) {
 				card.setStatus(1);
 				card.setForward(0);
 				card.setBackward(0);
@@ -244,7 +244,6 @@ public class Quiz {
 			int res = 0; // status > 0
 			if(isForward) {
 				res = card.getForward() + mark;
-				if(res < -1) res = -1;
 				card.setForward(res);
 			} else { // backward
 				res = card.getBackward() + mark;
@@ -255,7 +254,7 @@ public class Quiz {
 				card.setForward(0);
 				card.setBackward(0);
 			} 
-			if(/*card.getForward() ==*/ card.getBackward() == 1) {
+			if(card.getBackward() == 1) {
 				card.setStatus(2);
 				card.setForward(0);
 				card.setBackward(0);

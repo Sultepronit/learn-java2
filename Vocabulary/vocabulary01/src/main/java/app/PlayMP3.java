@@ -15,8 +15,6 @@ public class PlayMP3 {
             mp3Player = new MP3Player();
             System.out.println("Before");
             var url = new URL(urlString);
-            /*url.getContent();
-            System.out.println(url.getContent());*/
             System.out.println("After");
             mp3Player.addToPlayList(url);
             System.out.println("After2");

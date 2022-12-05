@@ -54,6 +54,7 @@ public class AddCardPanel extends JPanel {
 		exampleField.setFont(new Font("Roman", Font.PLAIN, 30));
 		
 		var scrollPane = new JScrollPane(soundUrlLabel);
+		//scrollPane.
 		//scrollPane.setSize(100, 100);
 		//scrollPane.setSize(new Dimension(150, 410));
 		scrollPane.setPreferredSize(new Dimension(950, 110));

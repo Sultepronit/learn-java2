@@ -55,7 +55,7 @@ public class Database {
 		var cr3 = "status INTEGER, forward INTEGER, backward INTEGER)";
 		stmt.execute(cr1 + cr2 + cr3);*/
 		
-		/*sql = "INSERT INTO vocab (word, transc, transl, example, mp3urls, status, forward, backward) values(?,?,?,?,?, 0, 0, 0)";
+		sql = "INSERT INTO vocab (word, transc, transl, example, mp3urls, status, forward, backward) values(?,?,?,?,?, 0, 0, 0)";
 		var insertStmt = conn.prepareStatement(sql);
 		insertStmt.setString(1, card.getWord());
 		insertStmt.setString(2, card.getTransc());
@@ -63,7 +63,7 @@ public class Database {
 		insertStmt.setString(4, card.getExample());
 		insertStmt.setString(5, card.getMp3String());
 		insertStmt.executeUpdate();
-		insertStmt.close();*/
+		insertStmt.close();
 		
 		/*sql = "SELECT id, word, transl FROM vocab";
 		var rs = stmt.executeQuery(sql);
