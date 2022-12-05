@@ -3,6 +3,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class App {
@@ -203,7 +204,29 @@ public class App {
 	
 	static void streamCreatig() {
 		var emptyStream = Stream.empty();
-		System.out.println(emptyStream);
+		System.out.println(emptyStream); // better practice than null!
+		emptyStream.forEach(System.out::println);
+		
+		Stream<Integer> built = Stream.<Integer>builder()
+				.add(50).add(100).add(200).add(500).build();
+		System.out.println(built);
+		built.forEach(System.out::println);
+		
+		Stream<Integer> generated = Stream.generate(
+			new Supplier<Integer>() {
+				@Override
+				public Integer get() {
+					Random r = new Random();
+					return r.nextInt(1, 301);
+				}
+			}
+		).limit(15);
+		generated.forEach(System.out::println);
+		
+		Stream<Integer> generatedLambda = Stream.generate(
+			() -> new Random().nextInt(300, 601)
+		).limit(15);
+		generatedLambda.forEach(System.out::println);
 	}
 
 	public static void main(String[] args) {
