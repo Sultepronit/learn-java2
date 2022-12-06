@@ -28,18 +28,15 @@ public class Quiz {
 	private static ArrayList<WordCard> controlList;
 	private static ArrayList<WordCard> repeatList;
 	private static ArrayList<CardLearnStage> sessionCardOrder;
-	//private static int toRepeat;
-	private static int lastToRepeat;
 	private static WordCard card;
-	private static WordCard cardBefore;
+	//private static WordCard cardBefore;
 	private static Random random = new Random();
-	private static int cIndex = 0;
 	private static boolean isForward = true;
 	private static Stage stage;
 	private static boolean isEvaluated;
 	private static StringBuilder typedWord = new StringBuilder();
 	private static boolean isCorrect = false;
-	private static int mark = 88;
+	private static int mark;
 	private static int maxRepeatable;
 	
 	public Quiz(List<WordCard> cardList) {
@@ -65,84 +62,67 @@ public class Quiz {
 		System.out.println("Study list: " + studyList.size());
 		System.out.println("Repeat0 list: " + controlList.size());
 		System.out.println("Repeat list: " + repeatList.size());
-		lastToRepeat = controlList.size() / 10;
-		System.out.println("To repeat: " + lastToRepeat);
+		//lastToRepeat = controlList.size() / 10;
+		//System.out.println("To repeat: " + lastToRepeat);
 		
 		for(int i = 0; i < studyList.size() - 2; i++) {
 			sessionCardOrder.add(CardLearnStage.STUDY);
 		}
-		for(int i = 0; i < lastToRepeat; i++) {
+		for(int i = 0; i < controlList.size() / 10; i++) {
 			sessionCardOrder.add(CardLearnStage.CONTROL);
 		}
 		//sessionCardList.
 		Collections.shuffle(sessionCardOrder);
 		System.out.println(sessionCardOrder);
 		
-		next();
-	}
-	
-	private static void end() {
-		//System.out.println("finnish!");
-		QuizPanel.end();
+		chooseCard();
 	}
 	
 	private static void next() {
-		if(mark < 88) {
-			evaluate();
-		}
-		
-		//if(studyList.size() + lastToRepeat < 3) {
+		evaluate();
 		if(sessionCardOrder.size() == 0) {
 			end();
 		} else {
-			isEvaluated = false;
-			isCorrect = false;
-			typedWord = new StringBuilder();
-			cardBefore = card;
-			/*while(cardBefore == card) {
-				int order = random.nextInt(1, (lastToRepeat + studyList.size() - 1));
-				int typeIndex = random.nextInt(sessionCardOrder.size());
-				if(order > lastToRepeat) {
-					cIndex = random.nextInt(studyList.size());
-					card = studyList.get(cIndex);
-				} else {
-					cIndex = random.nextInt(controlList.size());
-					card = controlList.get(cIndex);
-					lastToRepeat--;
-					controlList.remove(cIndex);
-					sessionCardOrder.remove(typeIndex);
-			}*/
-			while(cardBefore == card) {
-				//vat ti = random.nextInt(sessionCardOrder.size());
-				var ci = 0;
-				switch(sessionCardOrder.get(0)) {
-				case STUDY:
-					ci = random.nextInt(studyList.size());
-					card = studyList.get(ci);
-					studyList.remove(ci);
-					break;
-				case CONTROL:
-					ci = random.nextInt(controlList.size());
-					card = controlList.get(ci);
-					controlList.remove(ci);
-					break;
-				case REPEAT:
-					break;
-				}
-				sessionCardOrder.remove(0);
-			}
-
-			if(card.getForward() > card.getBackward()) isForward = false;
-			else isForward = true;
-			
-			QuizPanel.start(card, isForward);		
-			stage = Stage.QUESTION;
-			
-			//System.out.println(studyList.size());
-			System.out.println(sessionCardOrder);
-			//System.out.println(cIndex);
-			System.out.println(card);
+			chooseCard();
 		}
+	}
+	
+	private static void end() {
+		QuizPanel.end();
+	}
+	
+	private static void chooseCard() {
+		isEvaluated = false;
+		isCorrect = false;
+		typedWord = new StringBuilder();
+		var cardBefore = card;
+		while(cardBefore == card) {
+			var ci = 0;
+			switch(sessionCardOrder.get(0)) {
+			case STUDY:
+				ci = random.nextInt(studyList.size());
+				card = studyList.get(ci);
+				studyList.remove(ci);
+				break;
+			case CONTROL:
+				ci = random.nextInt(controlList.size());
+				card = controlList.get(ci);
+				controlList.remove(ci);
+				break;
+			case REPEAT:
+				break;
+			}
+			sessionCardOrder.remove(0);
+		}
+
+		if(card.getForward() > card.getBackward()) isForward = false;
+		else isForward = true;
+		
+		QuizPanel.start(card, isForward);		
+		stage = Stage.QUESTION;
+		
+		System.out.println(sessionCardOrder);
+		System.out.println(card);
 	}
 	
 	public static void react(char command) {
