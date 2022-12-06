@@ -27,7 +27,7 @@ public class Quiz {
 	private static ArrayList<WordCard> studyList;
 	private static ArrayList<WordCard> controlList;
 	private static ArrayList<WordCard> repeatList;
-	private static ArrayList<CardLearnStage> sessionCardList;
+	private static ArrayList<CardLearnStage> sessionCardOrder;
 	//private static int toRepeat;
 	private static int lastToRepeat;
 	private static WordCard card;
@@ -51,7 +51,7 @@ public class Quiz {
 		studyList = new ArrayList<>();
 		controlList = new ArrayList<>();
 		repeatList = new ArrayList<>();
-		sessionCardList = new ArrayList<>();
+		sessionCardOrder = new ArrayList<>();
 		//studyList = (ArrayList<WordCard>) App.cardList;
 		for(var card: cardList) {
 			if(card.getStatus() == 0) {
@@ -69,14 +69,14 @@ public class Quiz {
 		System.out.println("To repeat: " + lastToRepeat);
 		
 		for(int i = 0; i < studyList.size() - 2; i++) {
-			sessionCardList.add(CardLearnStage.STUDY);
+			sessionCardOrder.add(CardLearnStage.STUDY);
 		}
 		for(int i = 0; i < lastToRepeat; i++) {
-			sessionCardList.add(CardLearnStage.CONTROL);
+			sessionCardOrder.add(CardLearnStage.CONTROL);
 		}
 		//sessionCardList.
-		Collections.shuffle(sessionCardList);
-		System.out.println(sessionCardList);
+		Collections.shuffle(sessionCardOrder);
+		System.out.println(sessionCardOrder);
 		
 		next();
 	}
@@ -91,16 +91,17 @@ public class Quiz {
 			evaluate();
 		}
 		
-		if(studyList.size() + lastToRepeat < 3) {
+		//if(studyList.size() + lastToRepeat < 3) {
+		if(sessionCardOrder.size() == 0) {
 			end();
 		} else {
 			isEvaluated = false;
 			isCorrect = false;
 			typedWord = new StringBuilder();
 			cardBefore = card;
-			while(cardBefore == card) {
+			/*while(cardBefore == card) {
 				int order = random.nextInt(1, (lastToRepeat + studyList.size() - 1));
-				int typeIndex = random.nextInt(sessionCardList.size());
+				int typeIndex = random.nextInt(sessionCardOrder.size());
 				if(order > lastToRepeat) {
 					cIndex = random.nextInt(studyList.size());
 					card = studyList.get(cIndex);
@@ -109,9 +110,26 @@ public class Quiz {
 					card = controlList.get(cIndex);
 					lastToRepeat--;
 					controlList.remove(cIndex);
-					sessionCardList.remove(typeIndex);
+					sessionCardOrder.remove(typeIndex);
+			}*/
+			while(cardBefore == card) {
+				//vat ti = random.nextInt(sessionCardOrder.size());
+				var ci = 0;
+				switch(sessionCardOrder.get(0)) {
+				case STUDY:
+					ci = random.nextInt(studyList.size());
+					card = studyList.get(ci);
+					studyList.remove(ci);
+					break;
+				case CONTROL:
+					ci = random.nextInt(controlList.size());
+					card = controlList.get(ci);
+					controlList.remove(ci);
+					break;
+				case REPEAT:
+					break;
 				}
-				
+				sessionCardOrder.remove(0);
 			}
 
 			if(card.getForward() > card.getBackward()) isForward = false;
@@ -120,8 +138,9 @@ public class Quiz {
 			QuizPanel.start(card, isForward);		
 			stage = Stage.QUESTION;
 			
-			System.out.println(studyList.size());
-			System.out.println(cIndex);
+			//System.out.println(studyList.size());
+			System.out.println(sessionCardOrder);
+			//System.out.println(cIndex);
 			System.out.println(card);
 		}
 	}
@@ -236,9 +255,13 @@ public class Quiz {
 				card.setForward(0);
 				card.setBackward(0);
 			}
-			if(mark > 0) {
+			/*if(mark > 0) {
 				studyList.remove(cIndex);
 				//System.out.println("remove!");
+			}*/
+			if(mark < 0) {
+				studyList.add(card);
+				sessionCardOrder.add(CardLearnStage.STUDY);
 			}
 		} else {
 			int res = 0; // status > 0
