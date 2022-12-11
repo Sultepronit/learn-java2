@@ -13,14 +13,14 @@ public class PlayMP3 {
         try {
 
             mp3Player = new MP3Player();
-            System.out.println("Before");
+            //System.out.println("Before");
             var url = new URL(urlString);
-            System.out.println("After");
+            //System.out.println("After");
             mp3Player.addToPlayList(url);
-            System.out.println("After2");
+            //System.out.println("After2");
             
             mp3Player.play();
-            System.out.println("After3");
+            //System.out.println("After3");
             
         } catch (Exception e) {
             //System.err.println(e.getMessage());
