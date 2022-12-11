@@ -227,6 +227,29 @@ public class App {
 			() -> new Random().nextInt(300, 601)
 		).limit(15);
 		generatedLambda.forEach(System.out::println);
+		
+		Stream<Integer> iterated = Stream.iterate(0, i -> i < 50, i -> i + 5);
+		iterated.forEach(System.out::println);
+		
+		Stream<Integer> iteratedWithLimit = Stream.iterate(0, i -> i + 5).limit(15);
+		iteratedWithLimit.forEach(System.out::println);
+		
+		Stream<Integer> forTaking = Stream.of(3, 6, 9, 11, 12, 13, 15);
+		forTaking.takeWhile(s -> s % 3 == 0)
+			.forEach(s -> System.out.print(s + " "));
+		
+		System.out.println();
+		
+		Stream<Integer> forTaking2 = Stream.of(3, 6, 9, 2, 4, 8, 12, 36, 18, 42, 11, 13);
+		forTaking2.parallel().takeWhile(s -> s % 3 == 0)
+			.forEach(s -> System.out.print(s + " "));
+		
+		System.out.println();
+		
+		Stream<Integer> forTaking3 = Stream.of(3, 6, 9, 2, 4, 8, 12, 36, 18, 42, 11, 13);
+		
+		forTaking3.parallel().dropWhile(s -> s % 3 == 0)
+			.forEach(s -> System.out.print(s + " "));
 	}
 
 	public static void main(String[] args) {
